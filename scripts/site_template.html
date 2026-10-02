@@ -131,6 +131,7 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
   <label><input type="checkbox" class="org" value="B" checked> Bacteria</label>
   <label><input type="checkbox" class="org" value="V" checked> Viruses</label>
   <label><input type="checkbox" class="org" value="F" checked> Fungi</label>
+  <label><input type="checkbox" class="org" value="ND" checked> Organisms not documented</label>
   <label><input type="checkbox" id="inst"> Installable only (D1 = Y)</label>
 </div>
 <div class="tablewrap"><table id="t" aria-describedby="leg"></table></div>
@@ -170,7 +171,8 @@ function render(){
   DATA.forEach((r, i) => {
     const o = r.values.D6;
     if (q && !(r.platform + " " + r.status).toLowerCase().includes(q)) return;
-    if (!orgs.some(x => o.includes(x)) && !o.startsWith("n.d")) return;
+    const nd = o.startsWith("n.d");
+    if (nd ? !orgs.includes("ND") : !orgs.some(x => x !== "ND" && o.includes(x))) return;
     if (inst && r.values.D1.replace(/[†‡§]/g,"") !== "Y") return;
     const own = r.platform.startsWith("GENPAT");
     h += `<tr class="${own ? "own" : ""}"><td class="pl"><a href="${esc(r.website)}" rel="noopener">${esc(r.platform)}</a>` +
@@ -178,10 +180,11 @@ function render(){
          `<span class="st">${esc(r.status)}</span></td>`;
     DIMS.forEach(d => {
       const v = r.values[d];
-      h += `<td><button class="v ${cls(d, v)}" data-i="${i}" data-d="${d}" aria-label="${esc(r.platform)}, ${esc(LABELS[d][0])}: ${esc(v)}. Show source">${esc(v)}${r.notes[d] ? "*" : ""}</button></td>`;
+      h += `<td><button class="v ${cls(d, v)}" data-i="${i}" data-d="${d}" title="${esc(r.notes[d] ? "Note: " + r.notes[d] + " — click for source" : "Click for source and quotation")}" aria-label="${esc(r.platform)}, ${esc(LABELS[d][0])}: ${esc(v)}. Show source">${esc(v)}${r.notes[d] ? "*" : ""}</button></td>`;
     });
     h += "</tr>";
   });
+  if (!h.includes("<tr class=")) h += `<tr><td colspan="10" style="text-align:left;color:var(--muted);padding:16px">No platform matches the selected filters.</td></tr>`;
   document.getElementById("t").innerHTML = h + "</tbody>";
 }
 function show(i, d){
