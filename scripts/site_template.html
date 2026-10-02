@@ -70,6 +70,9 @@ details.ms .opts label{display:flex;gap:6px;align-items:center;padding:3px 0;col
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:980px;font-size:.88rem}
 th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.colh{all:unset;cursor:pointer;display:block;width:100%;text-align:center}
+.colh:hover,.colh:focus-visible{color:var(--accent);text-decoration:underline}
+.colh span{font-size:.75em}
 th{position:sticky;top:0;background:var(--surface);font-size:.78rem;color:var(--muted);font-weight:600;cursor:help}
 th.pl,td.pl{text-align:left;min-width:190px}
 td.pl a{font-weight:600;text-decoration:none}
@@ -141,6 +144,8 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 <div class="controls">
   <input type="search" id="q" placeholder="Search platforms…" aria-label="Search platforms">
   <button type="button" class="btn" id="reset">Reset filters</button>
+  <button type="button" class="btn" id="xsvg">Export SVG</button>
+  <button type="button" class="btn" id="xcsv">Export CSV</button>
   <span id="count" class="counts" aria-live="polite"></span>
 </div>
 <div class="tablewrap"><table id="t" aria-describedby="leg"></table></div>
@@ -149,7 +154,7 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
   <div class="it"><span class="v P">P</span><span>partial, via underlying software (†), plug-in or third party</span></div>
   <div class="it"><span class="v N">N</span><span>a source states it is not available</span></div>
   <div class="it"><span class="v nd">n.d.</span><span>not documented (≠ absent)</span></div>
-  <div class="foot">§ only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value · Filter any column with the menu under its heading: within a column, any of the ticked values; across columns, all filters apply. Click any value for its source and quotation.</div>
+  <div class="foot">§ only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value · Click a column heading for its definition. Filter any column with the menu under its heading: within a column, any of the ticked values; across columns, all filters apply. Click any value for its source and quotation.</div>
 </div>
 
 <footer>
@@ -176,7 +181,7 @@ const OPTS = [["", "All"], ["Y", "Y"], ["P", "P"], ["N", "N"], ["n.d.", "n.d."]]
 const ORG_OPTS = [["", "All"], ["B", "Bacteria"], ["V", "Viruses"], ["F", "Fungi"], ["n.d.", "not documented"]];
 const base = v => v.replace(/[†‡§*]/g, "").trim();
 function head(){
-  const t1 = "<tr><th class='pl' scope='col'>Platform</th>" + DIMS.map(d => `<th scope="col" title="${esc(LABELS[d][1])}">${d}<br>${esc(LABELS[d][0])}</th>`).join("") + "</tr>";
+  const t1 = "<tr><th class='pl' scope='col'>Platform</th>" + DIMS.map(d => `<th scope="col"><button type="button" class="colh" data-col="${d}" title="What does ${esc(LABELS[d][0])} mean?">${d}<br>${esc(LABELS[d][0])} <span aria-hidden="true">ⓘ</span></button></th>`).join("") + "</tr>";
   const t2 = "<tr class='flt'><th class='pl'></th>" + DIMS.map(d => {
     const o = (d === "D6" ? ORG_OPTS : OPTS).filter(([v]) => v).map(([v, l]) =>
       `<label><input type="checkbox" data-d="${d}" value="${esc(v)}"> ${esc(l)}</label>`).join("");
@@ -217,6 +222,109 @@ function render(){
   document.querySelector("#t tbody").innerHTML = h;
   document.getElementById("count").textContent = `${n} of ${DATA.length} platforms shown`;
 }
+
+const SITE = "https://genpat-it.github.io/bioinformatics-platform-comparison/";
+function wrap2(t, n){
+  if (t.length <= n) return [t];
+  const w = t.split(" "); let a = "", k = 0;
+  while (k < w.length && (a + " " + w[k]).trim().length <= n) { a = (a + " " + w[k]).trim(); k++; }
+  if (!a) { a = w[0]; k = 1; }
+  return [a, w.slice(k).join(" ")];
+}
+function visible(){ return DATA.filter(match); }
+function activeFilters(){
+  const parts = [];
+  const q = document.getElementById("q").value.trim();
+  if (q) parts.push(`name contains "${q}"`);
+  DIMS.forEach(d => {
+    const f = [...document.querySelectorAll(`input[data-d="${d}"]:checked`)].map(e => e.parentElement.textContent.trim());
+    if (f.length) parts.push(`${d} ${LABELS[d][0]}: ${f.join(" or ")}`);
+  });
+  return parts.length ? parts.join("; ") : "none (all platforms)";
+}
+function download(name, text, type){
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], {type}));
+  a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+const PAL = {Y:["#1e7a4f","#e5f4ec"], P:["#9a6a00","#fbf1d9"], N:["#a3362a","#f9e6e3"], nd:["#6b7280","#eef0f2"], org:["#1d2329","#eef0f2"]};
+function exportSVG(){
+  const rows = visible(), X = s => esc(s);
+  const W0 = 230, WC = 88, RH = 30, top = 112, HH = 58, cols = DIMS.length, W = W0 + WC * cols + 24;
+  const H = top + HH + RH * Math.max(rows.length, 1) + 110;
+  const date = DATA.reduce((m, r) => r.checked > m ? r.checked : m, "");
+  let g = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="12" y="30" font-size="20" font-weight="700" fill="#1d2329">Bioinformatics platform comparison</text>
+<text x="12" y="52" font-size="12" fill="#5b6670">Documented features from public sources only; n.d. = not documented (not absent); not a ranking. Values as of ${X(date)}.</text>
+<text x="12" y="72" font-size="12" fill="#5b6670">Filters: ${X(activeFilters())} · ${rows.length} of ${DATA.length} platforms</text>
+<text x="12" y="92" font-size="12" fill="#1f5f8b">${X(SITE)}</text>`;
+  const hy = top;
+  g += `<rect x="8" y="${hy}" width="${W - 16}" height="${HH}" fill="#f4f2ee"/>`;
+  g += `<text x="16" y="${hy + 33}" font-size="12" font-weight="700" fill="#5b6670">Platform</text>`;
+  DIMS.forEach((d, k) => {
+    const cx = W0 + WC * k + WC / 2;
+    g += `<text x="${cx}" y="${hy + 19}" font-size="11" font-weight="700" fill="#5b6670" text-anchor="middle">${d}</text>`;
+    wrap2(LABELS[d][0], 13).forEach((ln, j) => {
+      g += `<text x="${cx}" y="${hy + 34 + 12 * j}" font-size="10" fill="#5b6670" text-anchor="middle">${X(ln)}</text>`;
+    });
+  });
+  rows.forEach((r, i) => {
+    const y = top + HH + RH * i;
+    if (r.platform.startsWith("GENPAT")) g += `<rect x="8" y="${y}" width="${W - 16}" height="${RH}" fill="#e7f0f7"/>`;
+    g += `<line x1="8" x2="${W - 8}" y1="${y + RH}" y2="${y + RH}" stroke="#e3e0da"/>`;
+    g += `<text x="16" y="${y + 19}" font-size="12" font-weight="600" fill="#1d2329">${X(r.platform)}</text>`;
+    DIMS.forEach((d, k) => {
+      const v = r.values[d], c = PAL[cls(d, v)] || PAL.nd, cx = W0 + WC * k + WC / 2, bw = Math.max(30, 8 * v.length + 14);
+      g += `<rect x="${cx - bw / 2}" y="${y + 6}" width="${bw}" height="18" rx="9" fill="${c[1]}"/>`;
+      g += `<text x="${cx}" y="${y + 19}" font-size="11" font-weight="700" fill="${c[0]}" text-anchor="middle">${X(v)}${r.notes[d] ? "*" : ""}</text>`;
+    });
+  });
+  if (!rows.length) g += `<text x="16" y="${top + HH + 20}" font-size="12" fill="#5b6670">No platform matches the selected filters.</text>`;
+  const ly = top + HH + RH * Math.max(rows.length, 1) + 26;
+  g += `<text x="12" y="${ly}" font-size="11" fill="#5b6670">Y core function · P partial (via underlying software †, plug-in or third party) · N a source states it is not available · n.d. not documented</text>`;
+  g += `<text x="12" y="${ly + 18}" font-size="11" fill="#5b6670">B bacteria, V viruses, F fungi · § only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value (see the online table)</text>`;
+  g += `<text x="12" y="${ly + 36}" font-size="11" fill="#5b6670">Source, evidence and verbatim quotations: ${X(REPO)} · corrections by pull request</text>`;
+  g += `</svg>`;
+  download(`platform-comparison-${date}.svg`, g, "image/svg+xml");
+}
+function exportCSV(){
+  const rows = visible(), q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const head = ["platform", "website", "source_code", "status", ...DIMS.map(d => `${d} ${LABELS[d][0]}`), ...DIMS.map(d => `${d}_note`), "sources", "last_checked"];
+  const lines = [head.map(q).join(",")];
+  rows.forEach(r => lines.push([r.platform, r.website, r.code, r.status, ...DIMS.map(d => r.values[d]), ...DIMS.map(d => r.notes[d]), r.sources.join(";"), r.checked].map(q).join(",")));
+  lines.push(q(`# filters: ${activeFilters()} · source: ${REPO}`));
+  download("platform-comparison.csv", lines.join("\n") + "\n", "text/csv");
+}
+const RULE = {
+  Y: "core function of the service or software named in the row",
+  P: "available only through the software underlying a hosted service (†), a plug-in, an external component or a third-party integration, or only in part",
+  N: "a public source states that the feature is not available",
+  "n.d.": "no public source found — this does not mean the feature is absent"
+};
+function showCol(d){
+  const p = document.getElementById("panel");
+  const cnt = {};
+  DATA.filter(r => !r.platform.startsWith("GENPAT")).forEach(r => {
+    const v = base(r.values[d]);
+    (d === "D6" ? (v.startsWith("n.d") ? ["n.d."] : v.split(",")) : [v]).forEach(k => cnt[k] = (cnt[k] || 0) + 1);
+  });
+  const keys = d === "D6" ? [["B","Bacteria"],["V","Viruses"],["F","Fungi"],["n.d.","not documented"]] : [["Y","Y"],["P","P"],["N","N"],["n.d.","n.d."]];
+  const vals = d === "D6"
+    ? `<dd>B bacteria · V viruses · F fungi · n.d. not documented. A platform may cover several.</dd>`
+    : `<dd>${["Y","P","N","n.d."].map(k => `<div style="margin:4px 0"><span class="v ${k === "n.d." ? "nd" : k}">${k}</span> ${esc(RULE[k])}</div>`).join("")}</dd>`;
+  p.innerHTML = `<button class="close" id="cl">Close</button><h3>${d} · ${esc(LABELS[d][0])}</h3>
+    <p class="feat">${esc(LABELS[d][1])}</p>
+    <dl><dt>How values are assigned</dt>${vals}
+    <dt>Among the ${DATA.length - 1} platforms compared (GENPAT excluded)</dt>
+    <dd>${keys.map(([k, l]) => `${esc(l)}: <strong>${cnt[k] || 0}</strong>`).join(" · ")}</dd>
+    <dt>Method</dt><dd>Values come from public sources only; each has a source and a verbatim quotation. See <a href="${REPO}/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>.</dd></dl>
+    <p><a class="btn" href="${REPO}/issues/new?template=feature.yml">Suggest a better definition or a new feature</a></p>`;
+  p.hidden = false;
+  document.getElementById("cl").onclick = () => { p.hidden = true; };
+  document.getElementById("cl").focus();
+}
 function show(i, d){
   const r = DATA[i], e = r.evidence[d] || {}, p = document.getElementById("panel");
   const own = r.platform.startsWith("GENPAT");
@@ -235,7 +343,10 @@ function show(i, d){
   document.getElementById("cl").onclick = () => { p.hidden = true; };
   document.getElementById("cl").focus();
 }
-document.addEventListener("click", ev => { const b = ev.target.closest("button.v[data-i]"); if (b) show(+b.dataset.i, b.dataset.d); });
+document.addEventListener("click", ev => {
+  const b = ev.target.closest("button.v[data-i]"); if (b) return show(+b.dataset.i, b.dataset.d);
+  const h = ev.target.closest("button.colh"); if (h) showCol(h.dataset.col);
+});
 document.addEventListener("keydown", ev => { if (ev.key === "Escape") document.getElementById("panel").hidden = true; });
 head();
 document.getElementById("q").addEventListener("input", render);
@@ -254,6 +365,8 @@ document.getElementById("reset").addEventListener("click", () => {
   summaries();
   render();
 });
+document.getElementById("xsvg").addEventListener("click", exportSVG);
+document.getElementById("xcsv").addEventListener("click", exportCSV);
 render();
 </script>
 </body>
