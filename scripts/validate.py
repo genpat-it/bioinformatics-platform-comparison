@@ -5,7 +5,7 @@ Run from the repository root:  python3 scripts/validate.py
 """
 import csv, re, sys
 
-DIMS = [f"D{i}" for i in range(1, 10)]
+DIMS = [f"D{i}" for i in range(1, 11)]
 VALUE = re.compile(r"^(Y|P|N|n\.d\.)(†|‡|§)*$")
 ORGANISMS = re.compile(r"^(n\.d\.|[BVF](,[BVF])*)(†|‡|§)*$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")

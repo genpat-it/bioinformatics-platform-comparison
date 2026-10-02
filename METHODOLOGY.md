@@ -10,11 +10,12 @@ Pathoplexus). The list is not exhaustive; proposals to add a platform are welcom
 
 ## Features
 
-Nine features (D1–D9, see the README), chosen because they bear on how a platform can serve several
+Ten features (D1–D10, see the README), chosen because they bear on how a platform can serve several
 institutions: where it runs, under which licence, who owns and sees the data, whether the metadata and the
 analyses can be extended without code, which organisms it covers, how results are visualised, whether it
 exchanges data with repositories or authorities, and whether it integrates with a laboratory information
-system.
+system; and whether it accepts raw sequencing reads or only assembled or consensus sequences (D10,
+added on 2 October 2026 at a reader's suggestion).
 
 ## Sources
 
@@ -45,8 +46,8 @@ or third-party integrations. To keep rows comparable:
 
 ```mermaid
 flowchart TD
-  A["Scope: 14 platforms + GENPAT · 9 features"] --> B["Public sources collected: 60<br/>23 articles and preprints · 37 documentation, repositories, web pages"]
-  B --> C["First pass: 135 cells<br/>each with source + verbatim quote; no source → n.d."]
+  A["Scope: 14 platforms + GENPAT · 10 features"] --> B["Public sources collected: 66<br/>25 articles and preprints · 41 documentation, repositories, web pages"]
+  B --> C["First pass: 150 cells<br/>each with source + verbatim quote; no source → n.d."]
   C --> D["Independent review against one rule for all rows<br/>9 values corrected"]
   D --> E["Re-check against current sources<br/>every pre-2023 source, every N and n.d. · 10 values changed"]
   E --> F["Published: CSV, evidence, sources, audit trail<br/>automatic validation on every change"]

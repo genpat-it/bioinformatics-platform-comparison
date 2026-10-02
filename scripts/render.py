@@ -6,7 +6,7 @@ Run from the repository root:  python3 scripts/render.py          (rewrite READM
 """
 import csv, sys
 
-DIMS = [f"D{i}" for i in range(1, 10)]
+DIMS = [f"D{i}" for i in range(1, 11)]
 START, END = "<!-- TABLE:START -->", "<!-- TABLE:END -->"
 
 def table():

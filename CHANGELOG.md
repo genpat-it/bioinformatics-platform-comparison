@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- New feature **D10 — raw reads accepted** (suggested by a reader): 6 Y, 5 P, 2 N, 1 n.d. among the 14 platforms, each
+  with source and verbatim quotation; 6 new sources. P is used where only some read technologies or organisms
+  are accepted, or reads are stored but not processed.
 - Web page on GitHub Pages, generated from the CSV and the evidence file (filters, source and quotation for every value).
 - Methodology diagram (METHODOLOGY.md and web page).
 - Issue templates to suggest a new feature or a new platform.

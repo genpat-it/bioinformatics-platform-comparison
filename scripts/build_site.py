@@ -6,7 +6,7 @@ Run from the repository root:  python3 scripts/build_site.py
 import csv, json, re, html, os
 
 REPO = "https://github.com/genpat-it/bioinformatics-platform-comparison"
-DIMS = [f"D{i}" for i in range(1, 10)]
+DIMS = [f"D{i}" for i in range(1, 11)]
 LABELS = {
     "D1": ("Deployment", "Self-hosted or cloud service: can an institution install it on its own infrastructure? Y installable; N only a centrally hosted service; P only the underlying software or some components"),
     "D2": ("Open licence", "Licence meeting the Open Source Definition; source-available code under another licence, or without one, is N"),
@@ -17,6 +17,7 @@ LABELS = {
     "D7": ("Tree + metadata + map", "Phylogeny, metadata and map in one view"),
     "D8": ("Submission / exchange", "Built-in submission, brokerage or structured exchange with an external repository or authority (a plain download does not count)"),
     "D9": ("LIMS integration", "Integration with a laboratory information management system"),
+    "D10": ("Raw reads", "Raw sequencing reads (e.g. FASTQ) accepted as input and processed by the platform, rather than only assemblies, consensus sequences or derived results"),
 }
 # evidence section heading (prefix) -> platform name in the CSV
 SECTIONS = {"1.": "BIGSdb-Pasteur", "2.": "PubMLST", "3.": "EnteroBase", "4.": "CGE (genepi.dk)",
@@ -35,7 +36,7 @@ def evidence():
             continue
         cells = {}
         for line in sec.split("\n"):
-            m = re.match(r"^\| (D\d) \|(.*)\|\s*$", line)
+            m = re.match(r"^\| (D\d+) \|(.*)\|\s*$", line)
             if not m:
                 continue
             cols = [c.strip() for c in m.group(2).split(" | ")]
@@ -60,6 +61,7 @@ def main():
     tpl = open("scripts/site_template.html", encoding="utf-8").read()
     out = (tpl.replace("__DATA__", json.dumps(data, ensure_ascii=False))
               .replace("__LABELS__", json.dumps(LABELS, ensure_ascii=False))
+              .replace("__DIMS__", json.dumps(DIMS))
               .replace("__REPO__", REPO)
               .replace("__CHECKED__", max(r["last_checked"] for r in rows)))
     os.makedirs("site", exist_ok=True)

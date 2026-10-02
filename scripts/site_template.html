@@ -63,6 +63,7 @@ details.ms summary::-webkit-details-marker{display:none}
 details.ms summary::after{content:"▾";position:absolute;right:5px;top:2px;color:var(--muted)}
 details.ms.on summary{border-color:var(--accent);color:var(--accent);font-weight:600}
 details.ms .opts{position:absolute;z-index:5;top:calc(100% + 4px);left:0;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);padding:6px 8px;min-width:10em}
+tr.flt th:nth-last-child(-n+3) details.ms .opts{left:auto;right:0}
 details.ms .opts label{display:flex;gap:6px;align-items:center;padding:3px 0;color:var(--ink);white-space:nowrap;cursor:pointer}
 .tablewrap{overflow:visible}
 @media (max-width:1100px){.tablewrap{overflow-x:auto}}
@@ -126,9 +127,9 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 <h2 class="sec">Methodology</h2>
 <div class="card">
 <ol class="steps" aria-label="Methodology, step by step">
-  <li><div class="box"><b>Scope</b><span>14 platforms + GENPAT · 9 features</span><small>typing databases, analysis services, installable, national and viral platforms</small></div><div class="side"></div></li>
-  <li><div class="box"><b>Public sources collected: 60</b><span>23 articles and preprints · 37 documentation pages, repositories, web pages</span></div><div class="side"><b>Source types</b>official documentation, licence files, source code, release notes, presentations</div></li>
-  <li><div class="box"><b>First pass: 135 cells</b><span>each with its source and a verbatim quotation</span><small>a value is never inferred: no source → n.d.</small></div><div class="side"></div></li>
+  <li><div class="box"><b>Scope</b><span>14 platforms + GENPAT · 10 features</span><small>typing databases, analysis services, installable, national and viral platforms</small></div><div class="side"></div></li>
+  <li><div class="box"><b>Public sources collected: 66</b><span>25 articles and preprints · 41 documentation pages, repositories, web pages</span></div><div class="side"><b>Source types</b>official documentation, licence files, source code, release notes, presentations</div></li>
+  <li><div class="box"><b>First pass: 150 cells</b><span>each with its source and a verbatim quotation</span><small>a value is never inferred: no source → n.d.</small></div><div class="side"></div></li>
   <li><div class="box"><b>Independent review</b><span>one rule for all rows: service, underlying software, third party</span><small>9 values corrected</small></div><div class="side loopin"><b>Corrections re-enter here</b>every pull request is reviewed against the same rule</div></li>
   <li><div class="box"><b>Re-check against current sources</b><span>every cell resting on a pre-2023 source, every N and n.d.</span><small>10 values changed</small></div><div class="side"><b>Flagged, not removed</b>§ only pre-2023 source<br>‡ abstract-only quotation</div></li>
   <li><div class="box"><b>Published</b><span>table, evidence, sources and audit trail</span><small>machine-readable CSV · automatic validation on every change</small></div><div class="side loopin"><b>Corrections and new features</b>pull request or issue, with a public source</div></li>
@@ -162,7 +163,7 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 <script>
 const DATA = __DATA__;
 const LABELS = __LABELS__;
-const DIMS = ["D1","D2","D3","D4","D5","D6","D7","D8","D9"];
+const DIMS = __DIMS__;
 const REPO = "__REPO__";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" rel="noopener">$1</a>');
@@ -212,7 +213,7 @@ function render(){
     });
     h += "</tr>";
   });
-  if (!n) h = `<tr><td colspan="10" style="text-align:left;color:var(--muted);padding:16px">No platform matches the selected filters.</td></tr>`;
+  if (!n) h = `<tr><td colspan="${DIMS.length + 1}" style="text-align:left;color:var(--muted);padding:16px">No platform matches the selected filters.</td></tr>`;
   document.querySelector("#t tbody").innerHTML = h;
   document.getElementById("count").textContent = `${n} of ${DATA.length} platforms shown`;
 }
