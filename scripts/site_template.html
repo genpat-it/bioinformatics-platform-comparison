@@ -64,11 +64,13 @@ td.pl a{font-weight:600;text-decoration:none}
 td.pl .st{display:block;color:var(--muted);font-size:.76rem;line-height:1.3}
 td.pl .code{font-size:.76rem}
 tr.own td{background:var(--accent-soft)}
-.v{display:inline-block;min-width:2.6em;padding:3px 7px;border-radius:999px;font-weight:700;font-size:.8rem;border:0;cursor:pointer;font-family:inherit}
+.v{display:inline-block;min-width:2.9em;text-align:center;padding:3px 7px;border-radius:999px;font-weight:700;font-size:.8rem;border:0;cursor:pointer;font-family:inherit}
 .v.Y{color:var(--y);background:var(--y-bg)} .v.P{color:var(--p);background:var(--p-bg)} .v.N{color:var(--n);background:var(--n-bg)} .v.nd{color:var(--nd);background:var(--nd-bg)} .v.org{color:var(--ink);background:var(--nd-bg)}
 .v:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.84rem;color:var(--muted);margin:10px 0 0}
-.legend span.v{cursor:default}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:8px 20px;font-size:.84rem;color:var(--muted);margin:12px 0 0}
+.legend .it{display:grid;grid-template-columns:3.6em 1fr;align-items:center;gap:8px}
+.legend .it .v{cursor:default;width:3.6em;min-width:0}
+.legend .foot{grid-column:1/-1}
 #panel{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-6px 0 24px rgba(0,0,0,.12);padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));padding-top:calc(20px + env(safe-area-inset-top,0px));overflow-y:auto;z-index:10}
 #panel h3{margin:0 0 4px;font-size:1.05rem}
 #panel .feat{color:var(--muted);font-size:.86rem;margin:0 0 12px}
@@ -76,6 +78,11 @@ tr.own td{background:var(--accent-soft)}
 #panel dt{font-size:.78rem;color:var(--muted);margin-top:10px;text-transform:uppercase;letter-spacing:.04em}
 #panel dd{margin:2px 0 0;word-break:break-word}
 #panel .close{float:right;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.ghlink{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.9rem;border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--surface);flex:none;margin-top:4px}
+.ghlink:hover{border-color:var(--accent);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:7px}
+.btn .gh{width:16px;height:16px}
 footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 .counts{font-size:.84rem;color:var(--muted);margin:8px 0 0}
 </style>
@@ -83,14 +90,14 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 <body>
 <div class="wrap">
 <header>
-  <h1>Bioinformatics platform comparison</h1>
+  <div class="top"><h1>Bioinformatics platform comparison</h1><a class="ghlink" href="__REPO__" aria-label="View the repository on GitHub"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a></div>
   <p class="lead">A documented, correctable comparison of platforms used for bacterial and viral genomic surveillance. Every value is backed by a cited public source and a verbatim supporting passage. Last checked: <strong>__CHECKED__</strong>.</p>
   <div class="actions">
-    <a class="btn primary" href="__REPO__/blob/main/CONTRIBUTING.md">Propose a correction (pull request)</a>
-    <a class="btn" href="__REPO__/issues/new?template=correction.yml">Report an error (issue)</a>
-    <a class="btn" href="__REPO__/issues/new?template=feature.yml">Suggest a feature</a>
-    <a class="btn" href="__REPO__/issues/new?template=platform.yml">Suggest a platform</a>
-    <a class="btn" href="__REPO__">Repository &amp; data</a>
+    <a class="btn primary" href="__REPO__/blob/main/CONTRIBUTING.md"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Propose a correction (pull request)</a>
+    <a class="btn" href="__REPO__/issues/new?template=correction.yml"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Report an error (issue)</a>
+    <a class="btn" href="__REPO__/issues/new?template=feature.yml"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Suggest a feature</a>
+    <a class="btn" href="__REPO__/issues/new?template=platform.yml"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Suggest a platform</a>
+    <a class="btn" href="__REPO__"><svg class="gh" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Repository &amp; data</a>
   </div>
 </header>
 
@@ -128,16 +135,16 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 </div>
 <div class="tablewrap"><table id="t" aria-describedby="leg"></table></div>
 <div class="legend" id="leg">
-  <span><span class="v Y">Y</span> core function</span>
-  <span><span class="v P">P</span> partial, via underlying software (†), plug-in or third party</span>
-  <span><span class="v N">N</span> a source states it is not available</span>
-  <span><span class="v nd">n.d.</span> not documented (≠ absent)</span>
-  <span>§ only pre-2023 source · ‡ abstract-only quotation · Click any value for its source and quotation.</span>
+  <div class="it"><span class="v Y">Y</span><span>core function</span></div>
+  <div class="it"><span class="v P">P</span><span>partial, via underlying software (†), plug-in or third party</span></div>
+  <div class="it"><span class="v N">N</span><span>a source states it is not available</span></div>
+  <div class="it"><span class="v nd">n.d.</span><span>not documented (≠ absent)</span></div>
+  <div class="foot">§ only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value · Click any value for its source and quotation.</div>
 </div>
 
 <footer>
   Data and documentation: CC BY 4.0 · Scripts: MIT · Maintained by GENPAT (IZSAM). The GENPAT row is described by its developers; corrections to it are welcome on the same terms.
-  <br>Source of this page: <a href="__REPO__">__REPO__</a>
+  <br>Source of this page: <a href="__REPO__"><svg class="gh" viewBox="0 0 16 16" width="14" height="14" style="vertical-align:-2px;margin-right:4px" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>genpat-it/bioinformatics-platform-comparison</a>
 </footer>
 </div>
 
