@@ -43,6 +43,19 @@ or third-party integrations. To keep rows comparable:
 
 ## Procedure
 
+```mermaid
+flowchart TD
+  A["Scope: 14 platforms + GENPAT · 9 features"] --> B["Public sources collected: 60<br/>23 articles and preprints · 37 documentation, repositories, web pages"]
+  B --> C["First pass: 135 cells<br/>each with source + verbatim quote; no source → n.d."]
+  C --> D["Independent review against one rule for all rows<br/>9 values corrected"]
+  D --> E["Re-check against current sources<br/>every pre-2023 source, every N and n.d. · 10 values changed"]
+  E --> F["Published: CSV, evidence, sources, audit trail<br/>automatic validation on every change"]
+  E -.-> G["Flagged, not removed<br/>§ only pre-2023 source · ‡ abstract-only quotation"]
+  F --> H["Corrections and suggestions<br/>pull request or issue, with a public source"]
+  H -.->|re-enters review| D
+```
+
+
 1. **First pass (2 October 2026).** For each platform and feature, primary sources were searched and the
    supporting passage recorded. DOI metadata were checked on Crossref or the publisher's page.
 2. **Independent review.** The table and the evidence were reviewed against the rule above; values that did

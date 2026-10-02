@@ -4,7 +4,11 @@
 > If you develop or use one of these platforms and a value is wrong, outdated or missing, please
 > [open a pull request](CONTRIBUTING.md) — or, if you prefer, an
 > [issue](../../issues/new?template=correction.yml) — with a public source for the new value. Accepted
-> corrections are released with a new version and recorded in the [changelog](CHANGELOG.md).
+> corrections are recorded in the [changelog](CHANGELOG.md). You can also
+> [suggest a new feature to compare](../../issues/new?template=feature.yml) or
+> [a platform to add](../../issues/new?template=platform.yml).
+>
+> **Browse the table online:** https://genpat-it.github.io/bioinformatics-platform-comparison/
 
 ## How these values were obtained — please read
 
@@ -95,8 +99,8 @@ terms as for any other row.
 
 ## How to cite
 
-Cite the article above, together with this repository and the date or release you consulted. Releases are
-tagged so that a given version of the table can be referred to unambiguously.
+Cite the article above, together with this repository and the date or release you consulted. The date in the
+`Last checked` column and the commit history identify the version consulted.
 
 ## Licence
 

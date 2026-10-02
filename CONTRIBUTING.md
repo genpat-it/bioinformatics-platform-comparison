@@ -18,6 +18,14 @@ source that anyone can check.
 If you prefer not to edit files, open an issue with the "Correction" template, giving the platform, the
 feature, the proposed value and the source with its supporting passage.
 
+## Suggesting a new feature or a new platform
+
+The list of features and platforms is not closed. To propose a **new feature** (a new column), open an issue
+with the ["Suggest a feature" template](../../issues/new?template=feature.yml): give its definition and what
+counts as Y, P and N. A feature is added when it can be assessed for every platform from public sources. To
+propose a **new platform**, use the ["Suggest a platform" template](../../issues/new?template=platform.yml),
+or open a pull request that adds its row, its references and its evidence directly.
+
 ## What counts as a source
 
 Official documentation, licence files, source repositories, release notes, terms of use, presentations by the
@@ -28,5 +36,5 @@ check them.
 ## Maintainers' commitment
 
 Pull requests and issues are reviewed against the rule in [`METHODOLOGY.md`](METHODOLOGY.md). Accepted changes
-are recorded in [`CHANGELOG.md`](CHANGELOG.md) and released with a new tag. Developers of a listed platform
+are recorded in [`CHANGELOG.md`](CHANGELOG.md). Developers of a listed platform
 are especially welcome to correct their own row.

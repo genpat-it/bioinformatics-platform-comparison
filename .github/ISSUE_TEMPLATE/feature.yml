@@ -1,0 +1,25 @@
+name: Suggest a feature to compare
+description: Propose a new feature (column) for the comparison
+title: "[Feature] <short name>"
+labels: ["new-feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A new feature is added when it can be assessed for every platform from **public sources**, with a clear
+        definition of what counts as Y, P, N and n.d.
+  - type: input
+    id: name
+    attributes: {label: "Feature name"}
+    validations: {required: true}
+  - type: textarea
+    id: definition
+    attributes: {label: "Definition", description: "What question does the feature answer? What counts as Y, P and N?"}
+    validations: {required: true}
+  - type: textarea
+    id: why
+    attributes: {label: "Why it matters for genomic surveillance"}
+    validations: {required: true}
+  - type: textarea
+    id: sources
+    attributes: {label: "Example public sources (optional)", description: "Documentation or articles that show the feature for one or more platforms"}

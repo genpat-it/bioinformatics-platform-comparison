@@ -1,0 +1,20 @@
+name: Suggest a platform
+description: Propose a platform to add to the comparison
+title: "[Platform] <name>"
+labels: ["new-platform"]
+body:
+  - type: input
+    id: name
+    attributes: {label: "Platform name"}
+    validations: {required: true}
+  - type: input
+    id: site
+    attributes: {label: "Official website and source code (if public)"}
+    validations: {required: true}
+  - type: textarea
+    id: why
+    attributes: {label: "Why it belongs in the comparison"}
+    validations: {required: true}
+  - type: textarea
+    id: sources
+    attributes: {label: "Public sources (documentation, articles)"}

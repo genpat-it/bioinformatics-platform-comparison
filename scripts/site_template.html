@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bioinformatics platform comparison</title>
+<meta name="description" content="A documented, correctable comparison of bacterial and viral genomic-surveillance platforms, compiled from public sources only.">
+<style>
+:root{
+  --bg:#fbfaf8; --surface:#ffffff; --ink:#1d2329; --muted:#5b6670; --line:#e3e0da; --accent:#1f5f8b;
+  --accent-soft:#e7f0f7; --warn-bg:#fff7e6; --warn-line:#e8c27a;
+  --y:#1e7a4f; --y-bg:#e5f4ec; --p:#9a6a00; --p-bg:#fbf1d9; --n:#a3362a; --n-bg:#f9e6e3; --nd:#6b7280; --nd-bg:#eef0f2;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#14181c; --surface:#1b2026; --ink:#e7eaee; --muted:#9aa5b0; --line:#2c333b; --accent:#7fb6dd;
+    --accent-soft:#1d2c38; --warn-bg:#2a2416; --warn-line:#6b5524;
+    --y:#7fd3a8; --y-bg:#173326; --p:#e7c068; --p-bg:#33290f; --n:#f0998d; --n-bg:#3a1d19; --nd:#a7b0ba; --nd-bg:#262c33;
+    color-scheme: dark; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header h1{font-size:1.75rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+header p.lead{margin:0 0 14px;color:var(--muted);max-width:60em}
+a{color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px}
+.btn{display:inline-block;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);text-decoration:none;font-weight:600;font-size:.92rem}
+.btn.primary{background:var(--accent);color:var(--bg)}
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:14px 16px;margin:22px 0}
+.note h2{margin:0 0 6px;font-size:1rem}
+.note ul{margin:6px 0 0 18px;padding:0}
+h2.sec{font-size:1.2rem;margin:34px 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.flow{overflow-x:auto}
+.flow svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.flow .box{fill:var(--surface);stroke:var(--line)}
+.flow .box.main{fill:var(--accent-soft);stroke:var(--accent)}
+.flow .t{fill:var(--ink);font:600 13px system-ui,sans-serif}
+.flow .s{fill:var(--muted);font:12px system-ui,sans-serif}
+.flow .arr{stroke:var(--muted);fill:none;stroke-width:1.4}
+.flow .loop{stroke:var(--accent);fill:none;stroke-width:1.4;stroke-dasharray:5 4}
+.flow .ah{fill:var(--muted)} .flow .ahl{fill:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 12px}
+.controls input[type=search]{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:220px;flex:1 1 220px;max-width:320px}
+.controls label{font-size:.9rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:.88rem}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{position:sticky;top:0;background:var(--surface);font-size:.78rem;color:var(--muted);font-weight:600;cursor:help}
+th.pl,td.pl{text-align:left;min-width:190px}
+td.pl a{font-weight:600;text-decoration:none}
+td.pl .st{display:block;color:var(--muted);font-size:.76rem;line-height:1.3}
+td.pl .code{font-size:.76rem}
+tr.own td{background:var(--accent-soft)}
+.v{display:inline-block;min-width:2.6em;padding:3px 7px;border-radius:999px;font-weight:700;font-size:.8rem;border:0;cursor:pointer;font-family:inherit}
+.v.Y{color:var(--y);background:var(--y-bg)} .v.P{color:var(--p);background:var(--p-bg)} .v.N{color:var(--n);background:var(--n-bg)} .v.nd{color:var(--nd);background:var(--nd-bg)} .v.org{color:var(--ink);background:var(--nd-bg)}
+.v:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.84rem;color:var(--muted);margin:10px 0 0}
+.legend span.v{cursor:default}
+#panel{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);background:var(--surface);border-left:1px solid var(--line);box-shadow:-6px 0 24px rgba(0,0,0,.12);padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));padding-top:calc(20px + env(safe-area-inset-top,0px));overflow-y:auto;z-index:10}
+#panel h3{margin:0 0 4px;font-size:1.05rem}
+#panel .feat{color:var(--muted);font-size:.86rem;margin:0 0 12px}
+#panel blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:4px}
+#panel dt{font-size:.78rem;color:var(--muted);margin-top:10px;text-transform:uppercase;letter-spacing:.04em}
+#panel dd{margin:2px 0 0;word-break:break-word}
+#panel .close{float:right;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer}
+footer{margin-top:36px;color:var(--muted);font-size:.86rem}
+.counts{font-size:.84rem;color:var(--muted);margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Bioinformatics platform comparison</h1>
+  <p class="lead">A documented, correctable comparison of platforms used for bacterial and viral genomic surveillance. Every value is backed by a cited public source and a verbatim supporting passage. Last checked: <strong>__CHECKED__</strong>.</p>
+  <div class="actions">
+    <a class="btn primary" href="__REPO__/blob/main/CONTRIBUTING.md">Propose a correction (pull request)</a>
+    <a class="btn" href="__REPO__/issues/new?template=correction.yml">Report an error (issue)</a>
+    <a class="btn" href="__REPO__/issues/new?template=feature.yml">Suggest a feature</a>
+    <a class="btn" href="__REPO__/issues/new?template=platform.yml">Suggest a platform</a>
+    <a class="btn" href="__REPO__">Repository &amp; data</a>
+  </div>
+</header>
+
+<section class="note" aria-labelledby="howh">
+  <h2 id="howh">How these values were obtained</h2>
+  This table reports <strong>what we could learn from public sources only</strong>: articles and preprints, official documentation, licence files, source repositories, release notes and public web pages. <strong>We do not hold accounts on most of these platforms and have not used them ourselves.</strong>
+  <ul>
+    <li>A value may be incomplete or outdated; a platform may offer a feature that its public documentation does not describe.</li>
+    <li><strong>n.d.</strong> (not documented) means only that no public source was found, <strong>not</strong> that the feature is absent.</li>
+    <li>The table describes documented features, not quality or suitability, and is <strong>not a ranking</strong>.</li>
+  </ul>
+  Anyone — and especially the developers of a listed platform — can correct it by opening a pull request.
+</section>
+
+<h2 class="sec">Methodology</h2>
+<div class="card flow">
+<svg viewBox="0 0 860 560" role="img" aria-labelledby="flowt">
+  <title id="flowt">Flow of the comparison: platforms and features defined, public sources collected, first pass, independent review, re-check against current sources, publication, and corrections by pull request.</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0L10,5L0,10z"/></marker>
+    <marker id="al" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ahl" d="M0,0L10,5L0,10z"/></marker>
+  </defs>
+  <!-- main column -->
+  <rect class="box main" x="230" y="14" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="38" text-anchor="middle">Scope: 14 platforms + GENPAT · 9 features</text>
+  <text class="s" x="430" y="58" text-anchor="middle">typing databases, analysis services, installable, national and viral platforms</text>
+  <rect class="box main" x="230" y="104" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="128" text-anchor="middle">Public sources collected: 60</text>
+  <text class="s" x="430" y="148" text-anchor="middle">23 articles and preprints · 37 documentation, repositories, web pages</text>
+  <rect class="box main" x="230" y="194" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="218" text-anchor="middle">First pass: 135 cells, each with source + verbatim quote</text>
+  <text class="s" x="430" y="238" text-anchor="middle">a value is never inferred; no source → n.d.</text>
+  <rect class="box main" x="230" y="284" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="308" text-anchor="middle">Independent review against one rule for all rows</text>
+  <text class="s" x="430" y="328" text-anchor="middle">service vs underlying software vs third party · 9 values corrected</text>
+  <rect class="box main" x="230" y="374" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="398" text-anchor="middle">Re-check against current sources</text>
+  <text class="s" x="430" y="418" text-anchor="middle">every cell on a pre-2023 source, every N and n.d. · 10 values changed</text>
+  <rect class="box main" x="230" y="464" width="400" height="58" rx="8"/>
+  <text class="t" x="430" y="488" text-anchor="middle">Published: table, evidence, sources, audit trail</text>
+  <text class="s" x="430" y="508" text-anchor="middle">machine-readable CSV · automatic validation on every change</text>
+  <path class="arr" d="M430 72V102" marker-end="url(#a)"/><path class="arr" d="M430 162V192" marker-end="url(#a)"/>
+  <path class="arr" d="M430 252V282" marker-end="url(#a)"/><path class="arr" d="M430 342V372" marker-end="url(#a)"/>
+  <path class="arr" d="M430 432V462" marker-end="url(#a)"/>
+  <!-- side boxes -->
+  <rect class="box" x="12" y="194" width="190" height="58" rx="8"/>
+  <text class="t" x="107" y="218" text-anchor="middle">Source types</text>
+  <text class="s" x="107" y="238" text-anchor="middle">official docs, licences, code</text>
+  <path class="arr" d="M202 223H228" marker-end="url(#a)"/>
+  <rect class="box" x="658" y="374" width="190" height="58" rx="8"/>
+  <text class="t" x="753" y="394" text-anchor="middle">Flagged, not removed</text>
+  <text class="s" x="753" y="412" text-anchor="middle">§ only pre-2023 source</text>
+  <text class="s" x="753" y="427" text-anchor="middle">‡ abstract-only quotation</text>
+  <path class="arr" d="M630 403H656" marker-end="url(#a)"/>
+  <!-- correction loop -->
+  <rect class="box" x="658" y="464" width="190" height="58" rx="8"/>
+  <text class="t" x="753" y="488" text-anchor="middle">Corrections, new features</text>
+  <text class="s" x="753" y="508" text-anchor="middle">pull request or issue, public source</text>
+  <path class="loop" d="M630 493H656" marker-end="url(#al)"/>
+  <path class="loop" d="M753 464V223H632" marker-end="url(#al)"/>
+  <text class="s" x="760" y="300">re-enters review</text>
+</svg>
+</div>
+<p class="counts">Counts refer to the current version of the table. Full method: <a href="__REPO__/blob/main/METHODOLOGY.md">METHODOLOGY.md</a> · evidence and audit trail: <a href="__REPO__/blob/main/evidence/EVIDENCE.md">EVIDENCE.md</a>.</p>
+
+<h2 class="sec">The table</h2>
+<div class="controls">
+  <input type="search" id="q" placeholder="Filter platforms…" aria-label="Filter platforms">
+  <label><input type="checkbox" class="org" value="B" checked> Bacteria</label>
+  <label><input type="checkbox" class="org" value="V" checked> Viruses</label>
+  <label><input type="checkbox" class="org" value="F" checked> Fungi</label>
+  <label><input type="checkbox" id="inst"> Installable only (D1 = Y)</label>
+</div>
+<div class="tablewrap"><table id="t" aria-describedby="leg"></table></div>
+<div class="legend" id="leg">
+  <span><span class="v Y">Y</span> core function</span>
+  <span><span class="v P">P</span> partial, via underlying software (†), plug-in or third party</span>
+  <span><span class="v N">N</span> a source states it is not available</span>
+  <span><span class="v nd">n.d.</span> not documented (≠ absent)</span>
+  <span>§ only pre-2023 source · ‡ abstract-only quotation · Click any value for its source and quotation.</span>
+</div>
+
+<footer>
+  Data and documentation: CC BY 4.0 · Scripts: MIT · Maintained by GENPAT (IZSAM). The GENPAT row is described by its developers; corrections to it are welcome on the same terms.
+  <br>Source of this page: <a href="__REPO__">__REPO__</a>
+</footer>
+</div>
+
+<aside id="panel" hidden aria-live="polite"></aside>
+
+<script>
+const DATA = __DATA__;
+const LABELS = __LABELS__;
+const DIMS = ["D1","D2","D3","D4","D5","D6","D7","D8","D9"];
+const REPO = "__REPO__";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" rel="noopener">$1</a>');
+function cls(d, v){
+  if (d === "D6") return v.startsWith("n.d") ? "nd" : "org";
+  const b = v.replace(/[†‡§]/g,"");
+  return b === "n.d." ? "nd" : b;
+}
+function render(){
+  const q = document.getElementById("q").value.toLowerCase();
+  const orgs = [...document.querySelectorAll(".org:checked")].map(e => e.value);
+  const inst = document.getElementById("inst").checked;
+  let h = "<thead><tr><th class='pl' scope='col'>Platform</th>" + DIMS.map(d => `<th scope="col" title="${esc(LABELS[d][1])}">${d}<br>${esc(LABELS[d][0])}</th>`).join("") + "</tr></thead><tbody>";
+  DATA.forEach((r, i) => {
+    const o = r.values.D6;
+    if (q && !(r.platform + " " + r.status).toLowerCase().includes(q)) return;
+    if (!orgs.some(x => o.includes(x)) && !o.startsWith("n.d")) return;
+    if (inst && r.values.D1.replace(/[†‡§]/g,"") !== "Y") return;
+    const own = r.platform.startsWith("GENPAT");
+    h += `<tr class="${own ? "own" : ""}"><td class="pl"><a href="${esc(r.website)}" rel="noopener">${esc(r.platform)}</a>` +
+         (r.code ? ` · <a class="code" href="${esc(r.code)}" rel="noopener">code</a>` : "") +
+         `<span class="st">${esc(r.status)}</span></td>`;
+    DIMS.forEach(d => {
+      const v = r.values[d];
+      h += `<td><button class="v ${cls(d, v)}" data-i="${i}" data-d="${d}" aria-label="${esc(r.platform)}, ${esc(LABELS[d][0])}: ${esc(v)}. Show source">${esc(v)}${r.notes[d] ? "*" : ""}</button></td>`;
+    });
+    h += "</tr>";
+  });
+  document.getElementById("t").innerHTML = h + "</tbody>";
+}
+function show(i, d){
+  const r = DATA[i], e = r.evidence[d] || {}, p = document.getElementById("panel");
+  const own = r.platform.startsWith("GENPAT");
+  p.innerHTML = `<button class="close" id="cl">Close</button><h3>${esc(r.platform)} · ${d}</h3>
+    <p class="feat">${esc(LABELS[d][1])}</p>
+    <dl><dt>Value</dt><dd><span class="v ${cls(d, r.values[d])}">${esc(r.values[d])}</span></dd>
+    ${r.notes[d] ? `<dt>Note</dt><dd>${esc(r.notes[d])}</dd>` : ""}
+    ${e.value ? `<dt>Evidence</dt><dd>${esc(e.value)}</dd>` : ""}
+    ${e.quote && e.quote !== "—" ? `<dt>Verbatim passage</dt><dd><blockquote>${esc(e.quote)}</blockquote></dd>` : ""}
+    ${e.source && e.source !== "—" ? `<dt>Source</dt><dd>${linkify(e.source)}</dd>` : ""}
+    ${own ? `<dt>Source</dt><dd>Described by its developers in the GENPAT article (manuscript submitted).</dd>` : ""}
+    <dt>Row sources (bibliography keys)</dt><dd>${esc(r.sources.join(", "))}</dd>
+    <dt>Last checked</dt><dd>${esc(r.checked)}</dd></dl>
+    <p><a class="btn" href="${REPO}/issues/new?template=correction.yml&title=${encodeURIComponent("[Correction] " + r.platform + " " + d)}">Is this wrong? Report it</a></p>`;
+  p.hidden = false;
+  document.getElementById("cl").onclick = () => { p.hidden = true; };
+  document.getElementById("cl").focus();
+}
+document.addEventListener("click", ev => { const b = ev.target.closest("button.v[data-i]"); if (b) show(+b.dataset.i, b.dataset.d); });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") document.getElementById("panel").hidden = true; });
+["q"].forEach(id => document.getElementById(id).addEventListener("input", render));
+document.querySelectorAll(".org, #inst").forEach(e => e.addEventListener("change", render));
+render();
+</script>
+</body>
+</html>

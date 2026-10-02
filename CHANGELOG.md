@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Web page on GitHub Pages, generated from the CSV and the evidence file (filters, source and quotation for every value).
+- Methodology diagram (METHODOLOGY.md and web page).
+- Issue templates to suggest a new feature or a new platform.
 - Official website and public source-code links for every platform (columns `website`, `source_code`).
 
 ## v1.0.0 — 2026-10-02
