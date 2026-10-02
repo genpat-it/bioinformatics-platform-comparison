@@ -1,5 +1,11 @@
 # Genomic-surveillance platform comparison
 
+> **Anyone can correct or update this table by opening a pull request.**
+> If you develop or use one of these platforms and a value is wrong, outdated or missing, please
+> [open a pull request](CONTRIBUTING.md) — or, if you prefer, an
+> [issue](../../issues/new?template=correction.yml) — with a public source for the new value. Accepted
+> corrections are released with a new version and recorded in the [changelog](CHANGELOG.md).
+
 A documented, open and correctable comparison of software platforms used for bacterial and viral genomic
 surveillance. It supports the comparison discussed in:
 
@@ -7,8 +13,7 @@ surveillance. It supports the comparison discussed in:
 > surveillance (manuscript submitted, 2026).
 
 **Every value is backed by a cited source and a verbatim supporting passage.** The authors hold no accounts on
-most of the platforms compared, so no value rests on our own use. If a value is wrong or outdated, please
-[open a pull request](CONTRIBUTING.md): the table is meant to be corrected in the open.
+most of the platforms compared, so no value rests on our own use. The table is meant to be corrected in the open.
 
 ## The table
 
