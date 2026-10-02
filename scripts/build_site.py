@@ -66,7 +66,23 @@ def main():
               .replace("__CHECKED__", max(r["last_checked"] for r in rows)))
     os.makedirs("site", exist_ok=True)
     open("site/index.html", "w", encoding="utf-8").write(out)
-    print(f"site/index.html: {len(data)} platforms")
+    export = {
+        "title": "Bioinformatics platform comparison",
+        "description": "Documented features of genomic-surveillance platforms, from public sources only. "
+                       "n.d. = not documented (not absent); not a ranking.",
+        "source": REPO,
+        "site": "https://genpat-it.github.io/bioinformatics-platform-comparison/",
+        "license": "CC-BY-4.0",
+        "last_checked": max(r["last_checked"] for r in rows),
+        "values": {"Y": "core function of the service or software named in the row",
+                   "P": "available only through underlying software, a plug-in, an external component or a third-party integration, or only in part",
+                   "N": "a public source states that the feature is not available",
+                   "n.d.": "no public source found (does not imply absence)"},
+        "features": {d: {"name": LABELS[d][0], "definition": LABELS[d][1]} for d in DIMS},
+        "platforms": data,
+    }
+    open("site/data.json", "w", encoding="utf-8").write(json.dumps(export, ensure_ascii=False, indent=2))
+    print(f"site/index.html, site/data.json: {len(data)} platforms")
 
 if __name__ == "__main__":
     main()

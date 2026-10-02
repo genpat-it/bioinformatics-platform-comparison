@@ -90,7 +90,8 @@ viruses, **F** fungi.
 | [`METHODOLOGY.md`](METHODOLOGY.md) | how the comparison was built and checked |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | how to propose a correction |
 | [`CHANGELOG.md`](CHANGELOG.md) | every change to a value, with its reason |
-| `scripts/` | `validate.py` checks the CSV; `render.py` regenerates the table above |
+| `scripts/` | `validate.py` checks the CSV; `render.py` regenerates the table above; `build_site.py` builds the web page and `data.json` |
+| [`data.json`](https://genpat-it.github.io/bioinformatics-platform-comparison/data.json) | the whole table for reuse, with feature definitions, value rules, notes, sources and the evidence for every cell (generated on every change) |
 
 ## Disclosure
 

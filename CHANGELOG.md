@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `data.json` published with the web page: the whole table for reuse, with definitions, notes, sources and evidence.
 - Web page: export the table as SVG or CSV exactly as filtered by the user (active filters, date and source
   printed on the figure); click a column heading for its definition, value rule and counts.
 - New feature **D10 — raw reads accepted** (suggested by a reader): 6 Y, 5 P, 2 N, 1 n.d. among the 14 platforms, each
