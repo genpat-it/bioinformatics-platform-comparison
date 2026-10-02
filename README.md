@@ -6,6 +6,23 @@
 > [issue](../../issues/new?template=correction.yml) — with a public source for the new value. Accepted
 > corrections are released with a new version and recorded in the [changelog](CHANGELOG.md).
 
+## How these values were obtained — please read
+
+This table reports **what we could learn from public sources only**: published articles and preprints,
+official documentation, licence files, source repositories, release notes and public web pages of each
+platform. **We do not hold user or administrator accounts on most of these platforms and have not used them
+ourselves**, so we could not verify features that are not publicly documented.
+
+As a consequence:
+
+- a value may be **incomplete or outdated**: a platform may offer a feature that its public documentation
+  does not describe, or may have changed since the date in the `Last checked` column;
+- **n.d.** (*not documented*) means only that we found no public source — **not** that the feature is absent;
+- the table describes **documented features**, not the quality, reliability or suitability of any platform,
+  and is **not a ranking**.
+
+Platform developers and users who know better are explicitly invited to correct us by pull request.
+
 A documented, open and correctable comparison of software platforms used for bacterial and viral genomic
 surveillance. It supports the comparison discussed in:
 

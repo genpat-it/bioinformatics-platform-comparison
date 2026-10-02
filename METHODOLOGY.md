@@ -59,6 +59,10 @@ or third-party integrations. To keep rows comparable:
 
 ## Limitations
 
+- The values are what could be learned from public sources only; the authors hold no accounts on most of
+  the platforms and could not verify undocumented features.
+- The table describes documented features, not quality or suitability, and is not a ranking.
+
 - "n.d." means not documented, not absent.
 - Values describe each platform as documented on the date in `last_checked`; platforms change.
 - Documentation may describe features that are not enabled on a given instance.
