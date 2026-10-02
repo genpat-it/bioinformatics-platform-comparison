@@ -13,7 +13,7 @@ LABELS = {
     "D3": ("Ownership & access", "Data ownership and access control across institutions"),
     "D4": ("Extensible metadata", "Metadata model extensible by an operator without code changes"),
     "D5": ("Added pipelines", "Operator- or user-added analysis pipelines"),
-    "D6": ("Organisms", "Organisms covered: B bacteria, V viruses, F fungi"),
+    "D6": ("Microorganisms", "Microorganisms covered: B bacteria, V viruses, F fungi"),
     "D7": ("Tree + metadata + map", "Phylogeny, metadata and map in one view"),
     "D8": ("Submission / exchange", "Built-in submission, brokerage or structured exchange with an external repository or authority (a plain download does not count)"),
     "D9": ("LIMS integration", "Integration with a laboratory information management system"),

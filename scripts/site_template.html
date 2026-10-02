@@ -54,7 +54,10 @@ h2.sec{font-size:1.2rem;margin:34px 0 10px}
 }
 .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 12px}
 .controls input[type=search]{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:220px;flex:1 1 220px;max-width:320px}
-.controls label{font-size:.9rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+.controls .btn{cursor:pointer;background:transparent;font-family:inherit}
+.controls .counts{margin:0}
+tr.flt th{top:auto;padding:4px 4px 8px;cursor:default}
+tr.flt select{width:100%;min-width:4.6em;font:inherit;font-size:.78rem;padding:3px 2px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:980px;font-size:.88rem}
 th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
@@ -127,12 +130,9 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 
 <h2 class="sec">The table</h2>
 <div class="controls">
-  <input type="search" id="q" placeholder="Filter platforms…" aria-label="Filter platforms">
-  <label><input type="checkbox" class="org" value="B" checked> Bacteria</label>
-  <label><input type="checkbox" class="org" value="V" checked> Viruses</label>
-  <label><input type="checkbox" class="org" value="F" checked> Fungi</label>
-  <label><input type="checkbox" class="org" value="ND" checked> Organisms not documented</label>
-  <label><input type="checkbox" id="inst"> Installable only (D1 = Y)</label>
+  <input type="search" id="q" placeholder="Search platforms…" aria-label="Search platforms">
+  <button type="button" class="btn" id="reset">Reset filters</button>
+  <span id="count" class="counts" aria-live="polite"></span>
 </div>
 <div class="tablewrap"><table id="t" aria-describedby="leg"></table></div>
 <div class="legend" id="leg">
@@ -140,7 +140,7 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
   <div class="it"><span class="v P">P</span><span>partial, via underlying software (†), plug-in or third party</span></div>
   <div class="it"><span class="v N">N</span><span>a source states it is not available</span></div>
   <div class="it"><span class="v nd">n.d.</span><span>not documented (≠ absent)</span></div>
-  <div class="foot">§ only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value · Click any value for its source and quotation.</div>
+  <div class="foot">§ only pre-2023 source · ‡ abstract-only quotation · * a note qualifies the value · Filter any column with the menu under its heading; filters combine. Click any value for its source and quotation.</div>
 </div>
 
 <footer>
@@ -163,17 +163,33 @@ function cls(d, v){
   const b = v.replace(/[†‡§]/g,"");
   return b === "n.d." ? "nd" : b;
 }
-function render(){
+const OPTS = [["", "All"], ["Y", "Y"], ["P", "P"], ["N", "N"], ["n.d.", "n.d."]];
+const ORG_OPTS = [["", "All"], ["B", "Bacteria"], ["V", "Viruses"], ["F", "Fungi"], ["n.d.", "not documented"]];
+const base = v => v.replace(/[†‡§*]/g, "").trim();
+function head(){
+  const t1 = "<tr><th class='pl' scope='col'>Platform</th>" + DIMS.map(d => `<th scope="col" title="${esc(LABELS[d][1])}">${d}<br>${esc(LABELS[d][0])}</th>`).join("") + "</tr>";
+  const t2 = "<tr class='flt'><th class='pl'></th>" + DIMS.map(d => {
+    const o = (d === "D6" ? ORG_OPTS : OPTS).map(([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`).join("");
+    return `<th><select data-d="${d}" aria-label="Filter ${esc(LABELS[d][0])}">${o}</select></th>`;
+  }).join("") + "</tr>";
+  document.getElementById("t").innerHTML = `<thead>${t1}${t2}</thead><tbody></tbody>`;
+}
+function match(r){
   const q = document.getElementById("q").value.toLowerCase();
-  const orgs = [...document.querySelectorAll(".org:checked")].map(e => e.value);
-  const inst = document.getElementById("inst").checked;
-  let h = "<thead><tr><th class='pl' scope='col'>Platform</th>" + DIMS.map(d => `<th scope="col" title="${esc(LABELS[d][1])}">${d}<br>${esc(LABELS[d][0])}</th>`).join("") + "</tr></thead><tbody>";
+  if (q && !(r.platform + " " + r.status).toLowerCase().includes(q)) return false;
+  for (const sel of document.querySelectorAll("select[data-d]")) {
+    const f = sel.value, d = sel.dataset.d, v = base(r.values[d]);
+    if (!f) continue;
+    if (d === "D6") { if (f === "n.d." ? !v.startsWith("n.d") : !v.split(",").includes(f)) return false; }
+    else if (v !== f) return false;
+  }
+  return true;
+}
+function render(){
+  let h = "", n = 0;
   DATA.forEach((r, i) => {
-    const o = r.values.D6;
-    if (q && !(r.platform + " " + r.status).toLowerCase().includes(q)) return;
-    const nd = o.startsWith("n.d");
-    if (nd ? !orgs.includes("ND") : !orgs.some(x => x !== "ND" && o.includes(x))) return;
-    if (inst && r.values.D1.replace(/[†‡§]/g,"") !== "Y") return;
+    if (!match(r)) return;
+    n++;
     const own = r.platform.startsWith("GENPAT");
     h += `<tr class="${own ? "own" : ""}"><td class="pl"><a href="${esc(r.website)}" rel="noopener">${esc(r.platform)}</a>` +
          (r.code ? ` · <a class="code" href="${esc(r.code)}" rel="noopener">code</a>` : "") +
@@ -184,8 +200,9 @@ function render(){
     });
     h += "</tr>";
   });
-  if (!h.includes("<tr class=")) h += `<tr><td colspan="10" style="text-align:left;color:var(--muted);padding:16px">No platform matches the selected filters.</td></tr>`;
-  document.getElementById("t").innerHTML = h + "</tbody>";
+  if (!n) h = `<tr><td colspan="10" style="text-align:left;color:var(--muted);padding:16px">No platform matches the selected filters.</td></tr>`;
+  document.querySelector("#t tbody").innerHTML = h;
+  document.getElementById("count").textContent = `${n} of ${DATA.length} platforms shown`;
 }
 function show(i, d){
   const r = DATA[i], e = r.evidence[d] || {}, p = document.getElementById("panel");
@@ -207,8 +224,14 @@ function show(i, d){
 }
 document.addEventListener("click", ev => { const b = ev.target.closest("button.v[data-i]"); if (b) show(+b.dataset.i, b.dataset.d); });
 document.addEventListener("keydown", ev => { if (ev.key === "Escape") document.getElementById("panel").hidden = true; });
-["q"].forEach(id => document.getElementById(id).addEventListener("input", render));
-document.querySelectorAll(".org, #inst").forEach(e => e.addEventListener("change", render));
+head();
+document.getElementById("q").addEventListener("input", render);
+document.getElementById("t").addEventListener("change", ev => { if (ev.target.matches("select[data-d]")) render(); });
+document.getElementById("reset").addEventListener("click", () => {
+  document.getElementById("q").value = "";
+  document.querySelectorAll("select[data-d]").forEach(s => { s.value = ""; });
+  render();
+});
 render();
 </script>
 </body>

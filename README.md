@@ -52,7 +52,7 @@ viruses, **F** fungi.
 | D3 | Data ownership and access control across institutions |
 | D4 | Metadata model extensible by an operator without code changes |
 | D5 | Operator- or user-added analysis pipelines |
-| D6 | Organisms covered |
+| D6 | Microorganisms covered |
 | D7 | Phylogeny, metadata and map in one view |
 | D8 | Built-in submission, brokerage or structured exchange with an external repository or authority (a plain download does not count) |
 | D9 | Integration with a laboratory information management system (LIMS) |
