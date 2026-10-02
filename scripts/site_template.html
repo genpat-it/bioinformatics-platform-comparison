@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base target="_blank">
 <title>Bioinformatics platform comparison</title>
 <meta name="description" content="A documented, correctable comparison of bacterial and viral genomic-surveillance platforms, compiled from public sources only.">
 <style>
@@ -171,7 +172,7 @@ const LABELS = __LABELS__;
 const DIMS = __DIMS__;
 const REPO = "__REPO__";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" rel="noopener">$1</a>');
+const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+)/g, '<a href="$1" rel="noopener noreferrer">$1</a>');
 function cls(d, v){
   if (d === "D6") return v.startsWith("n.d") ? "nd" : "org";
   const b = v.replace(/[†‡§]/g,"");
@@ -209,8 +210,8 @@ function render(){
     if (!match(r)) return;
     n++;
     const own = r.platform.startsWith("GENPAT");
-    h += `<tr class="${own ? "own" : ""}"><td class="pl"><a href="${esc(r.website)}" rel="noopener">${esc(r.platform)}</a>` +
-         (r.code ? ` · <a class="code" href="${esc(r.code)}" rel="noopener">code</a>` : "") +
+    h += `<tr class="${own ? "own" : ""}"><td class="pl"><a href="${esc(r.website)}" rel="noopener noreferrer">${esc(r.platform)}</a>` +
+         (r.code ? ` · <a class="code" href="${esc(r.code)}" rel="noopener noreferrer">code</a>` : "") +
          `<span class="st">${esc(r.status)}</span></td>`;
     DIMS.forEach(d => {
       const v = r.values[d];
