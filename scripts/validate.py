@@ -35,6 +35,10 @@ def main():
         for s in srcs:
             if s not in keys:
                 errors.append(f"line {n} ({name}): source {s!r} not found in data/sources.bib")
+        if not r["website"].startswith("https://"):
+            errors.append(f"line {n} ({name}): website must be an https URL")
+        if r["source_code"] and not r["source_code"].startswith("https://"):
+            errors.append(f"line {n} ({name}): source_code must be empty or an https URL")
         if not DATE.match(r["last_checked"].strip()):
             errors.append(f"line {n} ({name}): last_checked must be YYYY-MM-DD")
     if errors:

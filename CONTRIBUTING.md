@@ -5,7 +5,7 @@ source that anyone can check.
 
 ## Pull request (preferred)
 
-1. Edit the row in [`data/comparison.csv`](data/comparison.csv): the value (`Y`, `P`, `N`, `n.d.`; organisms
+1. Edit the row in [`data/comparison.csv`](data/comparison.csv) (official `website` and public `source_code` links included): the value (`Y`, `P`, `N`, `n.d.`; organisms
    as `B`, `V`, `F`), the note if useful, the source key in `sources`, and `last_checked` (YYYY-MM-DD).
 2. Add the reference to [`data/sources.bib`](data/sources.bib) if it is new.
 3. Add the verbatim supporting passage (at most about 40 words), the URL or DOI and the access date to the

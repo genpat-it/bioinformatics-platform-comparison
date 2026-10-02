@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Official website and public source-code links for every platform (columns `website`, `source_code`).
+
 ## v1.0.0 — 2026-10-02
 
 First public version: 15 platforms, 9 features, 60 sources.

@@ -54,25 +54,25 @@ viruses, **F** fungi.
 | D9 | Integration with a laboratory information management system (LIMS) |
 
 <!-- TABLE:START -->
-| Platform | Status | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | Last checked |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| GENPAT / COHESIVE | authors' own platform (see disclosure) | Y | Y<sup>*</sup> | Y | Y | Y | B,V | Y | P<sup>*</sup> | Y | 2026-10-02 |
-| BIGSdb-Pasteur | active | P† | Y<sup>*</sup> | Y | Y | P† | B | P | n.d. | n.d.<sup>*</sup> | 2026-10-02 |
-| PubMLST | active | P† | Y<sup>*</sup> | Y | Y | P† | B,F<sup>*</sup> | P | n.d. | n.d.<sup>*</sup> | 2026-10-02 |
-| EnteroBase | active | P | N<sup>*</sup> | Y | P | P | B | P | P<sup>*</sup> | n.d. | 2026-10-02 |
-| CGE (genepi.dk) | 2016 platform withdrawn; legacy site retiring (notice 2026-08-01) | P<sup>*</sup> | P<sup>*</sup> | N<sup>*</sup> | n.d. | n.d. | B | n.d. | n.d. | n.d. | 2026-10-02 |
-| IRIDA | no longer developed; successor IRIDA Next | Y | Y<sup>*</sup> | Y | Y | Y | B§ | P<sup>*</sup> | Y<sup>*</sup> | n.d. | 2026-10-02 |
-| IRIDA Next | active (no tagged releases) | Y | Y<sup>*</sup> | Y | Y | Y<sup>*</sup> | n.d. | n.d. | n.d.<sup>*</sup> | n.d. | 2026-10-02 |
-| Galaxy | active | Y | Y<sup>*</sup> | P | P<sup>*</sup> | Y | B,V,F | P | P<sup>*</sup> | n.d.<sup>*</sup> | 2026-10-02 |
-| Pathogenwatch | active | P<sup>*</sup> | N<sup>*</sup> | P | P | N | B,V,F | Y | n.d. | n.d. | 2026-10-02 |
-| AusTrakka | active | N | N<sup>*</sup> | Y | P | P | B,V | P | n.d. | n.d. | 2026-10-02 |
-| NCBI Pathogen Detection | active | N | P<sup>*</sup> | N<sup>*</sup> | P | N | B,F | P | Y<sup>*</sup> | n.d. | 2026-10-02 |
-| EFSA One Health WGS System | active | N | P<sup>*</sup> | Y | N‡ | P | B<sup>*</sup> | P | Y‡<sup>*</sup> | n.d. | 2026-10-02 |
-| Nextstrain | active | Y | Y<sup>*</sup> | P | P | Y | B,V | Y | n.d. | n.d. | 2026-10-02 |
-| GISAID | active | N§ | N§<sup>*</sup> | P | n.d. | n.d. | V | P | N | n.d. | 2026-10-02 |
-| Pathoplexus | active | P<sup>*</sup> | Y<sup>*</sup> | P | Y | P | V | P<sup>*</sup> | Y<sup>*</sup> | n.d. | 2026-10-02 |
+| Platform | Code | Status | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | Last checked |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [GENPAT / COHESIVE](https://genpat.izs.it) | [source](https://github.com/genpat-it) | authors' own platform (see disclosure) | Y | Y<sup>*</sup> | Y | Y | Y | B,V | Y | P<sup>*</sup> | Y | 2026-10-02 |
+| [BIGSdb-Pasteur](https://bigsdb.pasteur.fr) | [source](https://github.com/kjolley/BIGSdb) | active | P† | Y<sup>*</sup> | Y | Y | P† | B | P | n.d. | n.d.<sup>*</sup> | 2026-10-02 |
+| [PubMLST](https://pubmlst.org) | [source](https://github.com/kjolley/BIGSdb) | active | P† | Y<sup>*</sup> | Y | Y | P† | B,F<sup>*</sup> | P | n.d. | n.d.<sup>*</sup> | 2026-10-02 |
+| [EnteroBase](https://enterobase.warwick.ac.uk) | [source](https://bitbucket.org/enterobase/enterobase-web) | active | P | N<sup>*</sup> | Y | P | P | B | P | P<sup>*</sup> | n.d. | 2026-10-02 |
+| [CGE (genepi.dk)](https://genepi.dk) | [source](https://bitbucket.org/genomicepidemiology) | 2016 platform withdrawn; legacy site retiring (notice 2026-08-01) | P<sup>*</sup> | P<sup>*</sup> | N<sup>*</sup> | n.d. | n.d. | B | n.d. | n.d. | n.d. | 2026-10-02 |
+| [IRIDA](https://phac-nml.github.io/irida-documentation/) | [source](https://github.com/phac-nml/irida) | no longer developed; successor IRIDA Next | Y | Y<sup>*</sup> | Y | Y | Y | B§ | P<sup>*</sup> | Y<sup>*</sup> | n.d. | 2026-10-02 |
+| [IRIDA Next](https://phac-nml.github.io/irida-next/) | [source](https://github.com/phac-nml/irida-next) | active (no tagged releases) | Y | Y<sup>*</sup> | Y | Y | Y<sup>*</sup> | n.d. | n.d. | n.d.<sup>*</sup> | n.d. | 2026-10-02 |
+| [Galaxy](https://galaxyproject.org) | [source](https://github.com/galaxyproject/galaxy) | active | Y | Y<sup>*</sup> | P | P<sup>*</sup> | Y | B,V,F | P | P<sup>*</sup> | n.d.<sup>*</sup> | 2026-10-02 |
+| [Pathogenwatch](https://pathogen.watch) | [source](https://github.com/pathogenwatch-oss) | active | P<sup>*</sup> | N<sup>*</sup> | P | P | N | B,V,F | Y | n.d. | n.d. | 2026-10-02 |
+| [AusTrakka](https://austrakka.net) | [source](https://github.com/AusTrakka) | active | N | N<sup>*</sup> | Y | P | P | B,V | P | n.d. | n.d. | 2026-10-02 |
+| [NCBI Pathogen Detection](https://www.ncbi.nlm.nih.gov/pathogens/) | — | active | N | P<sup>*</sup> | N<sup>*</sup> | P | N | B,F | P | Y<sup>*</sup> | n.d. | 2026-10-02 |
+| [EFSA One Health WGS System](https://www.efsa.europa.eu/en/topics/topic/whole-genome-sequencing-foodborne-outbreaks) | [source](https://dev.azure.com/efsa-devops/EFSA/_git/efsa.wgs.onehealth) | active | N | P<sup>*</sup> | Y | N‡ | P | B<sup>*</sup> | P | Y‡<sup>*</sup> | n.d. | 2026-10-02 |
+| [Nextstrain](https://nextstrain.org) | [source](https://github.com/nextstrain) | active | Y | Y<sup>*</sup> | P | P | Y | B,V | Y | n.d. | n.d. | 2026-10-02 |
+| [GISAID](https://gisaid.org) | — | active | N§ | N§<sup>*</sup> | P | n.d. | n.d. | V | P | N | n.d. | 2026-10-02 |
+| [Pathoplexus](https://pathoplexus.org) | [source](https://github.com/loculus-project/loculus) | active | P<sup>*</sup> | Y<sup>*</sup> | P | Y | P | V | P<sup>*</sup> | Y<sup>*</sup> | n.d. | 2026-10-02 |
 
-<sup>*</sup> A note qualifies the value; notes are in `data/comparison.csv` (columns `D1_note` … `D9_note`).
+<sup>*</sup> A note qualifies the value; notes are in `data/comparison.csv` (columns `D1_note` … `D9_note`). Platform names link to the official website; **Code** links to the public source code, where one exists.
 <!-- TABLE:END -->
 
 ## What is in this repository

@@ -12,8 +12,8 @@ START, END = "<!-- TABLE:START -->", "<!-- TABLE:END -->"
 def table():
     with open("data/comparison.csv", newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    head = "| Platform | Status | " + " | ".join(DIMS) + " | Last checked |"
-    sep = "|" + "---|" * (len(DIMS) + 3)
+    head = "| Platform | Code | Status | " + " | ".join(DIMS) + " | Last checked |"
+    sep = "|" + "---|" * (len(DIMS) + 4)
     lines = [head, sep]
     for r in rows:
         cells = []
@@ -22,9 +22,12 @@ def table():
             if r[f"{d}_note"]:
                 v += "<sup>*</sup>"
             cells.append(v)
-        lines.append(f"| {r['platform']} | {r['status']} | " + " | ".join(cells) + f" | {r['last_checked']} |")
+        name = f"[{r['platform']}]({r['website']})" if r["website"] else r["platform"]
+        code = f"[source]({r['source_code']})" if r["source_code"] else "—"
+        lines.append(f"| {name} | {code} | {r['status']} | " + " | ".join(cells) + f" | {r['last_checked']} |")
     lines.append("")
-    lines.append("<sup>*</sup> A note qualifies the value; notes are in `data/comparison.csv` (columns `D1_note` … `D9_note`).")
+    lines.append("<sup>*</sup> A note qualifies the value; notes are in `data/comparison.csv` (columns `D1_note` … `D9_note`). "
+                 "Platform names link to the official website; **Code** links to the public source code, where one exists.")
     return "\n".join(lines)
 
 def main():
