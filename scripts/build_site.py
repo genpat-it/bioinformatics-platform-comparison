@@ -6,7 +6,7 @@ Run from the repository root:  python3 scripts/build_site.py
 import csv, json, re, html, os
 
 REPO = "https://github.com/genpat-it/bioinformatics-platform-comparison"
-DIMS = [f"D{i}" for i in range(1, 11)]
+DIMS = [f"D{i}" for i in range(1, 12)]
 LABELS = {
     "D1": ("Deployment", "Self-hosted or cloud service: can an institution install it on its own infrastructure? Y installable; N only a centrally hosted service; P only the underlying software or some components"),
     "D2": ("Open licence", "Licence meeting the Open Source Definition; source-available code under another licence, or without one, is N"),
@@ -17,6 +17,7 @@ LABELS = {
     "D7": ("Tree + metadata + map", "Phylogeny, metadata and map in one view"),
     "D8": ("Submission / exchange", "Built-in submission, brokerage or structured exchange with an external repository or authority (a plain download does not count)"),
     "D9": ("LIMS integration", "Integration with a laboratory information management system"),
+    "D11": ("Sample grouping", "Samples can be grouped into named, persistent sets (projects, collections, tags, workspaces) reused to select samples for analysis, visualisation or sharing"),
     "D10": ("Raw reads", "Raw sequencing reads (e.g. FASTQ) accepted as input and processed by the platform, rather than only assemblies, consensus sequences or derived results"),
 }
 # evidence section heading (prefix) -> platform name in the CSV

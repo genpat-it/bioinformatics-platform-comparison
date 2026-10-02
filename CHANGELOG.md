@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- New feature **D11 — sample grouping** (projects, collections, tags, workspaces): 7 Y, 5 P, 1 N, 1 n.d. among the 14
+  platforms, each with source and verbatim quotation; 6 new sources. Clusters computed by a system count as
+  analysis results, not groupings.
 - `data.json` published with the web page: the whole table for reuse, with definitions, notes, sources and evidence.
 - Web page: export the table as SVG or CSV exactly as filtered by the user (active filters, date and source
   printed on the figure); click a column heading for its definition, value rule and counts.

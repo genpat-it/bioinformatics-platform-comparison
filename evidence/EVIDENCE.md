@@ -9,7 +9,9 @@ by an operator without code changes · D5 operator- or user-added analysis pipel
 D7 phylogeny, metadata and map in one view · D8 built-in submission, brokerage or structured exchange with
 an external repository or authority · D9 integration with a laboratory information management system ·
 D10 raw sequencing reads (e.g. FASTQ) accepted as input and processed by the platform (added 2 October 2026;
-P where only some read technologies or organisms are accepted, or reads are stored but not processed).
+P where only some read technologies or organisms are accepted, or reads are stored but not processed) · D11 samples grouped into named, persistent sets (projects, collections, tags,
+workspaces) reused for analysis, visualisation or sharing (added 2 October 2026; computed clusters count as
+analysis results, not groupings).
 
 **Values.** Y: core function of the service or software named in the row. P: available only through the
 software underlying a hosted service (†), through a plug-in, an external component or a third-party
@@ -42,6 +44,7 @@ The legacy CGE website (genomicepidemiology.org) has announced its replacement b
 | D8 | n.d. | — | (docs only show linking to existing ENA accessions) |
 | D9 | n.d. (the built-in sample table described in 2010 was removed in 2019; no external LIMS link documented) | bigsdb_issue257, https://github.com/kjolley/BIGSdb/issues/257 (2019-05-14) | "This has never really worked well and using a proper LIMS system which can be linked to from a BIGSdb record makes more sense." |
 | D10 | N (Assemblies only (FASTA contigs). Reads must be assembled before deposition (BIGSdb software).) | jolley2018bigsdb; bigsdbpasteurwga2026; bigsdbdocs2026 ; DOI 10.12688/wellcomeopenres.14826.1 (2018); https://bigsdb.pasteur.fr/whole-genome-assembly-submission-guidelines/ (n.s.) | "BIGSdb works exclusively with assembled nucleotide sequences … Therefore, genomic data present in the sequence read archives must be assembled before deposition into the database." / Pasteur: "Upload the assembly files for each isolate using the box provided." |
+| D11 | Y (user projects: analysis filter, private uploads, sharing with named accounts) | pasteurbigsdb2026; bigsdbdocs2026 (user_projects); **new** pasteurbigsdbkleb2026 (interface) ; https://bigsdb.pasteur.fr/about/ (n.s.); https://bigsdb.readthedocs.io/en/latest/user_projects.html (2026-06-18); https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates (live) | "Single- or multiple-user projects can be created from the web interface to facilitate the analysis of stored data and/or data upload." / "authenticated users are able to set up their own projects in order to group isolates for analysis." |
 
 Supporting extra: deployment at Pasteur — Brisse, open peer-review report on jolley2018bigsdb (10.21956/wellcomeopenres.16155.r33972): "My group is using the BIGSdb platform to power the Pasteur MLST web site and databases". Projects: https://bigsdb.pasteur.fr/about/ "Single- or multiple-user projects can be created from the web interface to facilitate the analysis of stored data and/or data upload."
 
@@ -59,6 +62,7 @@ Supporting extra: deployment at Pasteur — Brisse, open peer-review report on j
 | D8 | n.d. | — | — |
 | D9 | n.d. (the built-in sample table described in 2010 was removed in 2019; no external LIMS link documented) | bigsdb_issue257, https://github.com/kjolley/BIGSdb/issues/257 (2019-05-14) | "This has never really worked well and using a proper LIMS system which can be linked to from a BIGSdb record makes more sense." |
 | D10 | N (Assemblies only (same BIGSdb software). Genome submission requires a contig FASTA per isolate.) | jolley2018bigsdb; bigsdbdocs2026 ; DOI 10.12688/wellcomeopenres.14826.1 (2018); https://bigsdb.readthedocs.io/en/latest/submissions.html (docs © 2014-2026, v1.54/1.55) | "BIGSdb works exclusively with assembled nucleotide sequences …" / "assembly_filename - this is the name of the FASTA file containing the assembly contigs. … you will not be able to finalize the submission until every isolate record has a matching contig file." |
+| D11 | Y (user projects (BIGSdb software)) | bigsdbdocs2026 (user_projects); jolley2018bigsdb; **new** pubmlstneisseria2026 (interface) ; https://pubmlst.org/bigsdb?db=pubmlst_neisseria_isolates (live); https://bigsdb.readthedocs.io/en/latest/user_projects.html (2026-06-18); https://pubmlst.org/projects/iris/data (n.s.) | Interface: "PROJECTS Public projects Your projects" / "You can share a project that you own with any other user." / "IRIS data are stored in private projects within the PubMLST species-specific databases." |
 
 Additional evidence (D3): private records docs https://bigsdb.readthedocs.io/en/latest/private_records.html "Users with a status of 'submitter', 'curator', or 'admin' can upload private isolate records that will be hidden from public view." Organism list (D6): https://pubmlst.org/organisms?page=2 lists "Lactococcus lactis 936-like bacteriophage"; no human/animal virus databases listed.
 
@@ -76,6 +80,7 @@ Additional evidence (D3): private records docs https://bigsdb.readthedocs.io/en/
 | D8 | partial (ENA on request per 2020 paper; current GDPR page says only "eventually") | Zhou2020 | "Short reads are deleted after genome assembly, or after automated, brokered uploading of the reads and metadata to the European Nucleotide Archive (ENA) upon user request." |
 | D9 | n.d. | — | — |
 | D10 | P (Illumina short reads only (paired by default). The only other input is a complete-genome FASTA, on request. Long-read assembly is planned, not available.) | enterobasedocs2026; dyer2025enterobase ; https://enterobase.readthedocs.io/en/latest/features/add-upload-reads.html (© 2026); DOI 10.1093/nar/gkae902 (2025) | "By default, reads are Illumina and paired. … to specify a Complete genome, which is the only other type available to date (please ask for permission)" / Dyer 2025: "develop and install additional bioinformatics tools (e.g. for assembling long sequencing reads …)" |
+| D11 | Y (workspaces in folders: pipeline inputs, sharing with buddies) | enterobasedocs2026 (features/using-workspaces; features/buddies) ; https://enterobase.readthedocs.io/en/latest/features/using-workspaces.html (n.s.) | "Workspaces allow you to define a set of strains in a defined group, which you can revisit at any time. … can be shared with other users." / "Workspaces are also the main method to defined [sic] input data sets for certain analysis pipelines" |
 
 Conflicts: GDPR page https://enterobase.readthedocs.io/en/latest/GDPR.html: "We would eventually like to transfer sequence read data to services such as ENA/NCBI/DDBJ, but we will contact you directly for your permission when this occurs." Embargo: Zhou2020 "up to 12 mo"; current About page "6 months after uploads". Release delay quote (Zhou2020): "a delay in the release date of up to 12 mo can be imposed by users when uploading short-read sequences."
 
@@ -98,6 +103,7 @@ tools to the new website ( https://genepi.dk )." Values describe genepi.dk.
 | D8 | n.d. (integrated ENA upload announced in 2016, never documented as implemented; a standalone uploader exists, 2017) | thomsen2016bap ; https://bitbucket.org/genomicepidemiology/ENAUploader | "In addition, an optional automatic upload to the European Nucleotide Archive (ENA) of sample metadata and WGS data will soon be implemented." |
 | D9 | n.d. | — | — |
 | D10 | Y (FASTQ: Illumina ("non-nanopore") and ONT. Nanopore input exists for ResFinder, SpeciesFinder and ListPred. PathogenFinder2 takes FASTA only. One isolate per run.) | genepi2026 ; https://genepi.dk/virulencefinder, /resfinder (site last-modified 2026-09-29; text from the site's JS bundle) | "Upload assembled genomes (FASTA) or raw sequencing reads (FASTQ). Only one isolate per analysis is supported." / input options: "FASTQ (Non-nanopore Reads)", "FASTQ (Nanopore Reads)" |
+| D11 | N (no accounts, no data retained, one isolate per analysis) | genepi2026 ; https://genepi.dk (n.s.; server last-modified 2026-09-29); https://genepi.dk/listpred (n.s.) | "We do not retain uploaded data or store information about individual users." / "Only one isolate per analysis is supported." |
 
 ### 5. IRIDA
 
@@ -113,6 +119,7 @@ tools to the new website ( https://genepi.dk )." Values describe genepi.dk.
 | D8 | yes (NCBI SRA) | matthews2018irida | "IRIDA is also capable of submitting sequence data and metadata to NCBI's sequence read archive (SRA), which is synchronized daily with EBI-EMBL's ENA and Japan's DDBJ." |
 | D9 | n.d. | — | — |
 | D10 | Y (FASTQ single- and paired-end, plus ONT FAST5. FastQC runs automatically on upload. No longer developed.) | iridasamplesdocs2026; iridagithub ; https://phac-nml.github.io/irida-documentation/user/user/samples/ (n.s.; docs release 24.12, 2024-12-20) | "Sequence, fast5, and assembly files can be uploaded at the same time." / "Upload Sequence Files - Files must have the extension .fastq or .fastq.gz, all other formats will be ignored." |
+| D11 | Y (projects with roles and automated pipelines; samples shareable into several projects) | iridagithub; **new** iridaprojectdocs2026; iridasamplesdocs2026 ; https://phac-nml.github.io/irida-documentation/user/user/project/ (page last changed 2022-05-06, 24.12 docs); https://phac-nml.github.io/irida-documentation/user/user/samples/ (n.s.) | "When you create a new project, you’ll need to provide a project name" / "you must be a manager on both the current project and the project you are trying to share or move samples to." |
 
 Additional evidence (D3): "Project Managers "own" the project data." (matthews2018irida); "Metadata Fields can be restricted at the project level by metadata role." (iridadocs2026, sample-metadata page). D7 map: "GenGIS provides a connector to IRIDA to download the results of phylogenetic analyses and geographic information stored within IRIDA, integrating this information into a phylogeographic map."
 
@@ -130,6 +137,7 @@ Additional evidence (D3): "Project Managers "own" the project data." (matthews20
 | D8 | n.d. (downloads only; **regression vs IRIDA's SRA export**) | …/docs/user/export/getting-started | 2026-08-05 | "In IRIDA Next, you can download data from multiple samples or all files associated with a workflow execution at once by creating a data export." |
 | D9 | n.d. | — | — | — |
 | D10 | Y (Single- and paired-end FASTQ attached to samples. Automated pipelines run on newly uploaded paired-end files. Technology not stated.) | iridanextdocs2026 ; https://phac-nml.github.io/irida-next/docs/user/analysis/getting-started ; …/docs/user/project/samples/sample-files (n.s.; repo HEAD 2026-10-01) | 2026-10-02 (access) | "Automated workflow executions belong to projects and once set-up, an analysis is performed on all newly uploaded paired-end files within that project" / "Files can be uploaded and attached to samples for analysis" |
+| D11 | Y (projects owned by users or groups; samples selected for analysis) | iridanextdocs2026 ; https://phac-nml.github.io/irida-next/docs/user/project/projects/ (projects-intro; n.s.; repo HEAD 2026-10-01); …/docs/user/analysis/getting-started (n.s.) | 2026-10-02 (access) | "Projects are used to organize and manage samples. They can belong to either a group (or subgroup) or a user." / "Allows users to select any number of samples belonging to either a group or project and perform an analysis on them." |
 
 ### 6. Galaxy
 
@@ -145,6 +153,7 @@ Additional evidence (D3): "Project Managers "own" the project data." (matthews20
 | D8 | partial (ENA via community Tool Shed tool) | roncoroni2021ena, DOI 10.1093/bioinformatics/btab421 | "A Galaxy wrap of the tool allows users with little or no bioinformatics knowledge to do bulk sequencing read submissions." |
 | D9 | n.d. (the third-party Galaxy LIMS of 2013, scholtalbers2013galaxylims, relied on sample tracking, removed in 2017) | galaxypr5103, https://github.com/galaxyproject/galaxy/pull/5103 (2017-12-01) | "This PR removes the sample tracking features entirely from the backend." |
 | D10 | Y (FASTQ is a core datatype. Illumina paired-end (2026 paper) and ONT MinION (GTN workflows).) | galaxy2026; galaxynanopore2023 ; DOI 10.1093/nar/gkag469 (2026); https://training.galaxyproject.org/training-material/topics/microbiome/tutorials/pathogen-detection-from-nanopore-foodborne-data/tutorial.html (published 2023-01-26, modified 2026-09-23) | "each of the six samples … is represented as a pair of compressed fastqsanger.gz datasets ready for downstream analysis." / "sequenced using MinION (ONT). … In this tutorial, we will be presenting a series of Galaxy workflows" |
+| D11 | P (named dataset collections in histories (files, not sample records)) | **new** gtncollections2026; galaxyprivacy2026 ; https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/collections/tutorial.html (published 2016-09-30, modified 2026-09-23); https://galaxyproject.org/learn/privacy-features/ (n.s.) | "Dataset collections allow combining multiple datasets into a single entity." / "it is time to name the collection" / "In order to share history with all its content via link you can explicitly make all datasets in the history accessible" |
 
 ### 7. Pathogenwatch
 
@@ -160,6 +169,7 @@ Additional evidence (D3): "Project Managers "own" the project data." (matthews20
 | D8 | n.d. | — | — |
 | D9 | n.d. | — | — |
 | D10 | P (Paired-end short-read FASTQ only, in a limited number, assembled by the in-house short-read pipeline. No long reads documented.) | pathogenwatchdocs2026 ; https://cgps.gitbook.io/pathogenwatch/how-to-use-pathogenwatch/uploads-and-folders/genome-uploads-folders (n.s.) | "You can also upload a limited number of pairs of FASTQ files for assembly using our in-house assembly pipeline." |
+| D11 | Y (named collections with permanent URL: tree, map, timeline; invite roles) | pathogenwatchdocs2026 (Creating & Sharing Collections); argimon2021typhi ; https://cgps.gitbook.io/pathogenwatch/how-to-use-pathogenwatch/collections/creating-sharing-collections ("Last updated 2 months ago", relative, about Aug 2026) | "Pathogenwatch collections are a way of creating meaningful groups of genomes for comparing and sharing with collaborators and the communities." |
 
 ### 8. AusTrakka
 
@@ -175,6 +185,7 @@ Additional evidence (D3): "Project Managers "own" the project data." (matthews20
 | D8 | n.d. | — | — |
 | D9 | n.d. | — | — |
 | D10 | Y (FASTQ: Illumina paired-end and single-end, and ONT. FASTA consensus and assemblies are also accepted. Analysis runs on the platform's analysis server.) | austrakkadocs; austrakkagovernance2025 ; https://docs.trakka.org/docs/Reference/sequence-data (© 2026); governance protocol endorsed 2025-11-12 | "fastq-ill-pe Paired-end Illumina FASTQ sequences … fastq-ill-se Single-end Illumina FASTQ sequences … fastq-ont Oxford Nanopore (ONT) FASTQ sequences" / "Sequence data should be uploaded using FASTA or FASTQ data formats, as appropriate for the pathogen and analysis." |
+| D11 | P (projects as collections of sample records; no source shows users creating them) | austrakkadocs (projects-overview; org-sample-sharing; roles-and-permissions; CHANGELOG) ; https://docs.trakka.org/docs/Web-Interface/Projects/projects-overview (n.s.); …/Organisations/org-sample-sharing (n.s.); https://docs.trakka.org/CHANGELOG (entry 2025-10-19) | "Projects on the Trakka platform are collections of sequence and metadata records, together with analysis results where available." / "You can share to any project in which you are have [sic] the Uploader role." |
 
 Additional evidence (D3): austrakka.net "the retainment of data custodianship for jurisdictions." Reference: hoang2022austrakka, Nat Commun 13:865 (2022).
 
@@ -192,6 +203,7 @@ Additional evidence (D3): austrakka.net "the retainment of data custodianship fo
 | D8 | yes (intrinsic: data enter via NCBI SRA/GenBank submission) | https://www.ncbi.nlm.nih.gov/pathogens/about/ | "Public health agencies and researchers sequence the samples and submit the data to NCBI…" |
 | D9 | n.d. | — | — |
 | D10 | P (Illumina reads only, submitted via SRA and assembled by the NCBI pipeline. Other technologies must be submitted as assemblies to GenBank.) | ncbipathogenssubmit; ncbipathogensabout ; https://www.ncbi.nlm.nih.gov/pathogens/submit-data/ ; https://www.ncbi.nlm.nih.gov/pathogens/about/ (n.s.) | "The Pathogen system accepts genomic data from the ILLUMINA platform sequencing of cultured microbial organisms." / "If you sequenced your isolates using another technology then you can submit the assembled genomes directly to GenBank" |
+| D11 | P (saved searches and watched isolates for alerts only; computed SNP clusters not counted) | ncbipathogensabout (pathogens_help) ; https://www.ncbi.nlm.nih.gov/pathogens/pathogens_help/ (revised 2026-08-05) | "A ‘Save’ button in the Isolates Browser interface allows you to save one or more searches, and automatically notifies you about new isolates that match the criteria of each saved search." |
 
 Component of the pipeline published separately: AMRFinderPlus (Feldgarden et al. 2021, DOI 10.1038/s41598-021-91456-0).
 
@@ -209,6 +221,7 @@ Component of the pipeline published separately: AMRFinderPlus (Feldgarden et al.
 | D8 | yes (to ECDC, cgMLST + minimum metadata); ENA n.d. | efsa2022onehealthwgs (abstract) ‡ | "interoperates with the ECDC Molecular Typing system exchanging core genome Multi Locus Sequence Typing (cgMLST) profiles and minimum metadata." |
 | D9 | n.d. | — | — |
 | D10 | Y (FASTQ is uploaded to the WGS portal and typed by the EFSA pipeline in EFSA's cloud. The alternative route sends pre-computed profiles. Technology not stated.) | rossi2023efsaecdc; rossi2022efsa ; https://www.efsa.europa.eu/sites/default/files/2023-09/presentation-1-rossi-nannapaneni.pdf (2023-09-05) | "Share data using the WGS portal uploading fastq → take advantage of EFSA computing resources" / "Experimental data: information related to the experiment (raw sequencing reads)" |
+| D11 | n.d. (computed cluster IDs are analysis results, not user groupings) | rossi2023efsaecdc ; https://www.efsa.europa.eu/sites/default/files/2023-09/presentation-1-rossi-nannapaneni.pdf (2023-09-05) | (context only) "Metadata includes date, country, sample category and clusterID" / "Cluster definition at ECDC Fixed threshold" |
 
 Additional evidence (D3): efsaecdc2022collab: "The inclusion of Data in the ECDC and EFSA MTSs does not affect the ownership…". D5: "valid only if the allele calling is performed… using chewBBACA v >2.8.4 with schemas downloaded from chewieNS" (rossi2022efsa). Background ref: efsa2019wgs, DOI 10.2903/sp.efsa.2019.EN-1337.
 
@@ -226,6 +239,7 @@ Additional evidence (D3): efsaecdc2022collab: "The inclusion of Data in the ECDC
 | D8 | n.d. (ingest from NCBI/GISAID only) | hadfield2018nextstrain (context) | "sourced from public repositories such as NCBI ( www.ncbi.nlm.nih.gov ), GISAID ( www.gisaid.org ) and ViPR" |
 | D9 | n.d. | — | — |
 | D10 | P (Viral workflows start from consensus genomes. Only the *M. tuberculosis* workflow starts from short-read FASTQ, which it fetches from SRA. Nextclade Web does not take FASTQ (not checked against a primary source).) | andrews2026nextstrain ; DOI 10.64898/2026.03.23.713807 (bioRxiv preprint, 2026-03-26) | "One of the main differences of the M. tuberculosis pipeline compared to the viral pipelines is that it starts with raw short-read sequence data rather than consensus genome sequences." |
+| D11 | P (Groups share derived datasets and narratives, not sample records) | nextstraindocs (learn/groups) ; https://docs.nextstrain.org/en/latest/learn/groups/index.html (n.s.) | "Nextstrain Groups is a feature that allows research labs, public health entities, and other organizations to share their Nextstrain datasets and narratives directly on nextstrain.org within the context of a named ‘group’." |
 
 D3 and D4 are P: Groups share derived datasets rather than primary sequence data, and metadata are per-build TSV columns without a managed schema.
 
@@ -243,6 +257,7 @@ D3 and D4 are P: Groups share derived datasets rather than primary sequence data
 | D8 | no (is itself the repository; does not forward to others) | https://gisaid.org/help/faq/ | "GISAID does not offer a mechanism to release data to any other database." |
 | D9 | n.d. | — | — |
 | D10 | n.d. (Submission documentation is behind login. No primary public source on input formats was found. Third-party guidance (e.g. APHL) says consensus goes to GISAID and reads go to SRA; not counted.) | — | — |
+| D11 | P (EPI_SET: fixed identifier with DOI for acknowledgement) | **new** gisaidepiset; gisaidweb ; https://gisaid.org/episet/ (n.s.) | "GISAID’s EPI_SET functionality permits the aggregation of GISAID Accession Numbers into a single, permanent dataset identifier called EPI_SET ID." / "EPI_SET IDs can also be used by registered Users in the Search filter … to retrieve all records" |
 
 Additional evidence (D3): DAA "You acknowledge and agree that all Data will be freely shared among and used by all other Authorized Users." The quoted agreement is the EpiFlu Database Access Agreement.
 
@@ -260,6 +275,7 @@ Additional evidence (D3): DAA "You acknowledge and agree that all Data will be f
 | D8 | yes (ENA/INSDC for open data) | https://pathoplexus.org/about/faq | "If you've chosen for your data to be open straight away, it will be submitted to the European Nucleotide Archive (ENA)." |
 | D9 | n.d. | — | — |
 | D10 | P (Since 2026-09-22, gzipped FASTQ (single- or paired-end) can be added only alongside a consensus sequence. Reads are hosted and brokered to INSDC; no documented processing of reads.) | pathoplexusrawreads2026 ; https://pathoplexus.org/docs/how-to/upload-raw-reads ; https://pathoplexus.org/news/2026-09-22-announcing-raw-reads (2026-09-22) | "You can provide either a single fastq.gz file or a pair of fastq.gz files for consensus sequences generated from single-end or paired-end reads, respectively." / "you can optionally include raw sequencing reads in your submissions." |
+| D11 | Y (SeqSets: user-named, editable, shareable sets with optional DOI) | **new** pathoplexusseqset2026; loculusdocs ; https://pathoplexus.org/docs/how-to/generate-seqset (n.s.); https://pathoplexus.org/docs/concepts/seqset (n.s.) | "a new box will open allowing you to name and describe the SeqSet, and to add accession numbers." / "SeqSets can be shared via the URL visible when viewing a SeqSet page." |
 
 ---
 
@@ -268,22 +284,22 @@ Additional evidence (D3): DAA "You acknowledge and agree that all Data will be f
 † through the BIGSdb software, not a function offered to users of the hosted site. ‡ quotation verified on
 the abstract; full text not accessible. § only source predates 2023. B bacteria, V viruses, F fungi.
 
-| Platform | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | D10 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| BIGSdb-Pasteur | P† | Y (GPL-3.0) | Y | Y | P† | B | P | n.d. | n.d. (built-in sample table removed 2019) | N (assemblies only) |
-| PubMLST | P† | Y (GPL-3.0) | Y | Y | P† | B, F (one bacteriophage scheme, not counted as viral surveillance) | P | n.d. | n.d. (as above) | N (assemblies only) |
-| EnteroBase | P | N (no licence) | Y | P | P | B | P | P (brokered ENA upload with consent) | n.d. | P (Illumina only) |
-| CGE (genepi.dk) | P | P (tools Apache-2.0; website not open) | N | n.d. | n.d. | B | n.d. | n.d. | n.d. | Y |
-| IRIDA (no longer developed) | Y | Y (Apache-2.0) | Y | Y | Y | B§ | P (no map) | Y (NCBI SRA) | n.d. | Y |
-| IRIDA Next | Y | Y (Apache-2.0) | Y | Y | Y | n.d. | n.d. | n.d. | n.d. | Y |
-| Galaxy | Y | Y (MIT) | P | P (Sample Sheets) | Y | B, V, F | P | P (ENA, community tool) | n.d. | Y |
-| Pathogenwatch | P | N (non-commercial) | P | P | N | B, V, F | Y | n.d. | n.d. | P (limited paired-end FASTQ) |
-| AusTrakka | N | N (no licence) | Y | P | P | B, V | P | n.d. | n.d. | Y |
-| NCBI Pathogen Detection | N | P (components) | N (all public) | P | N | B, F | P (no map) | Y (data enter by NCBI submission) | n.d. | P (Illumina only) |
-| EFSA One Health WGS | N | P (pipeline EUPL-1.2) | Y | N‡ | P | B | P (no map) | Y‡ (ECDC cgMLST exchange) | n.d. | Y |
-| Nextstrain | Y | Y (AGPL-3.0/MIT) | P | P | Y | B, V | Y | n.d. | n.d. | P (M. tuberculosis workflow only) |
-| GISAID | N§ | N§ (proprietary) | P | n.d. | n.d. | V | P | N | n.d. | n.d. |
-| Pathoplexus | P (via Loculus) | Y (AGPL-3.0) | P | Y | P | V | P (external link-out tools) | Y (ENA) | n.d. | P (reads stored with consensus, not processed) |
+| Platform | D1 | D2 | D3 | D4 | D5 | D6 | D7 | D8 | D9 | D10 | D11 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| BIGSdb-Pasteur | P† | Y (GPL-3.0) | Y | Y | P† | B | P | n.d. | n.d. (built-in sample table removed 2019) | N (assemblies only) | Y |
+| PubMLST | P† | Y (GPL-3.0) | Y | Y | P† | B, F (one bacteriophage scheme, not counted as viral surveillance) | P | n.d. | n.d. (as above) | N (assemblies only) | Y |
+| EnteroBase | P | N (no licence) | Y | P | P | B | P | P (brokered ENA upload with consent) | n.d. | P (Illumina only) | Y |
+| CGE (genepi.dk) | P | P (tools Apache-2.0; website not open) | N | n.d. | n.d. | B | n.d. | n.d. | n.d. | Y | N |
+| IRIDA (no longer developed) | Y | Y (Apache-2.0) | Y | Y | Y | B§ | P (no map) | Y (NCBI SRA) | n.d. | Y | Y |
+| IRIDA Next | Y | Y (Apache-2.0) | Y | Y | Y | n.d. | n.d. | n.d. | n.d. | Y | Y |
+| Galaxy | Y | Y (MIT) | P | P (Sample Sheets) | Y | B, V, F | P | P (ENA, community tool) | n.d. | Y | P |
+| Pathogenwatch | P | N (non-commercial) | P | P | N | B, V, F | Y | n.d. | n.d. | P (limited paired-end FASTQ) | Y |
+| AusTrakka | N | N (no licence) | Y | P | P | B, V | P | n.d. | n.d. | Y | P |
+| NCBI Pathogen Detection | N | P (components) | N (all public) | P | N | B, F | P (no map) | Y (data enter by NCBI submission) | n.d. | P (Illumina only) | P |
+| EFSA One Health WGS | N | P (pipeline EUPL-1.2) | Y | N‡ | P | B | P (no map) | Y‡ (ECDC cgMLST exchange) | n.d. | Y | n.d. |
+| Nextstrain | Y | Y (AGPL-3.0/MIT) | P | P | Y | B, V | Y | n.d. | n.d. | P (M. tuberculosis workflow only) | P |
+| GISAID | N§ | N§ (proprietary) | P | n.d. | n.d. | V | P | N | n.d. | n.d. | P |
+| Pathoplexus | P (via Loculus) | Y (AGPL-3.0) | P | Y | P | V | P (external link-out tools) | Y (ENA) | n.d. | P (reads stored with consensus, not processed) | Y |
 
 Sections (a) and (b) show the current values; sections (c) and (d) document the re-check.
 Full references for the source keys are in `data/sources.bib`.
