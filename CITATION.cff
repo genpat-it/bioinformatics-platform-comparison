@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this comparison, please cite the article and this repository (with the version or date consulted)."
+title: "Genomic-surveillance platform comparison"
+version: 1.0.0
+date-released: 2026-10-02
+license: CC-BY-4.0
+repository-code: "https://github.com/genpat-it/bioinformatics-platform-comparison"
+authors:
+  - family-names: "de Ruvo"
+    given-names: "Andrea"
+    affiliation: "Istituto Zooprofilattico Sperimentale dell'Abruzzo e del Molise (IZSAM), GENPAT"

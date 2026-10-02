@@ -1,0 +1,27 @@
+name: Correction
+description: Report a value that is wrong or outdated
+title: "[Correction] <platform> <feature>"
+labels: ["correction"]
+body:
+  - type: input
+    id: platform
+    attributes: {label: Platform}
+    validations: {required: true}
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Feature
+      options: ["D1 deployment (self-hosted or cloud)", "D2 open-source licence", "D3 ownership and access control", "D4 extensible metadata", "D5 added pipelines", "D6 organisms", "D7 phylogeny + metadata + map", "D8 submission or exchange", "D9 LIMS integration"]
+    validations: {required: true}
+  - type: input
+    id: values
+    attributes: {label: "Current value → proposed value"}
+    validations: {required: true}
+  - type: input
+    id: source
+    attributes: {label: "Source (URL or DOI) and access date"}
+    validations: {required: true}
+  - type: textarea
+    id: quote
+    attributes: {label: "Verbatim supporting passage (≤ ~40 words)"}
+    validations: {required: true}
