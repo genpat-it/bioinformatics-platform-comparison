@@ -32,15 +32,26 @@ a{color:var(--accent)}
 .note ul{margin:6px 0 0 18px;padding:0}
 h2.sec{font-size:1.2rem;margin:34px 0 10px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
-.flow{overflow-x:auto}
-.flow svg{display:block;margin:0 auto;max-width:100%;height:auto}
-.flow .box{fill:var(--surface);stroke:var(--line)}
-.flow .box.main{fill:var(--accent-soft);stroke:var(--accent)}
-.flow .t{fill:var(--ink);font:600 13px system-ui,sans-serif}
-.flow .s{fill:var(--muted);font:12px system-ui,sans-serif}
-.flow .arr{stroke:var(--muted);fill:none;stroke-width:1.4}
-.flow .loop{stroke:var(--accent);fill:none;stroke-width:1.4;stroke-dasharray:5 4}
-.flow .ah{fill:var(--muted)} .flow .ahl{fill:var(--accent)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:st}
+.steps li{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;position:relative;padding-bottom:26px}
+.steps li:last-child{padding-bottom:0}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:4px;height:18px;border-left:2px solid var(--muted)}
+.steps li:not(:last-child)::before{content:"";position:absolute;left:calc(50% - 5px);bottom:0;border:5px solid transparent;border-top:7px solid var(--muted);border-bottom:0}
+.steps .box{counter-increment:st;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 14px 10px 44px;position:relative}
+.steps .box::before{content:counter(st);position:absolute;left:12px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.steps .box b{display:block}
+.steps .box span{display:block;color:var(--ink)}
+.steps .box small{display:block;color:var(--muted);font-size:.84rem;margin-top:2px}
+.steps .side{font-size:.84rem;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:8px 12px;align-self:center}
+.steps .side:empty{display:none}
+.steps .side b{display:block;color:var(--ink);font-size:.86rem}
+.steps .side.loopin{border-color:var(--accent);border-style:dashed}
+@media (min-width:760px){
+  .steps li{grid-template-columns:minmax(0,1fr) 240px;gap:16px}
+  .steps li:not(:last-child)::after{left:calc((100% - 256px)/2)}
+  .steps li:not(:last-child)::before{left:calc((100% - 256px)/2 - 5px)}
+  .steps .side:empty{display:block;visibility:hidden}
+}
 .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:0 0 12px}
 .controls input[type=search]{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:220px;flex:1 1 220px;max-width:320px}
 .controls label{font-size:.9rem;color:var(--muted);display:flex;gap:6px;align-items:center}
@@ -95,53 +106,15 @@ footer{margin-top:36px;color:var(--muted);font-size:.86rem}
 </section>
 
 <h2 class="sec">Methodology</h2>
-<div class="card flow">
-<svg viewBox="0 0 860 560" role="img" aria-labelledby="flowt">
-  <title id="flowt">Flow of the comparison: platforms and features defined, public sources collected, first pass, independent review, re-check against current sources, publication, and corrections by pull request.</title>
-  <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0,0L10,5L0,10z"/></marker>
-    <marker id="al" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ahl" d="M0,0L10,5L0,10z"/></marker>
-  </defs>
-  <!-- main column -->
-  <rect class="box main" x="230" y="14" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="38" text-anchor="middle">Scope: 14 platforms + GENPAT · 9 features</text>
-  <text class="s" x="430" y="58" text-anchor="middle">typing databases, analysis services, installable, national and viral platforms</text>
-  <rect class="box main" x="230" y="104" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="128" text-anchor="middle">Public sources collected: 60</text>
-  <text class="s" x="430" y="148" text-anchor="middle">23 articles and preprints · 37 documentation, repositories, web pages</text>
-  <rect class="box main" x="230" y="194" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="218" text-anchor="middle">First pass: 135 cells, each with source + verbatim quote</text>
-  <text class="s" x="430" y="238" text-anchor="middle">a value is never inferred; no source → n.d.</text>
-  <rect class="box main" x="230" y="284" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="308" text-anchor="middle">Independent review against one rule for all rows</text>
-  <text class="s" x="430" y="328" text-anchor="middle">service vs underlying software vs third party · 9 values corrected</text>
-  <rect class="box main" x="230" y="374" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="398" text-anchor="middle">Re-check against current sources</text>
-  <text class="s" x="430" y="418" text-anchor="middle">every cell on a pre-2023 source, every N and n.d. · 10 values changed</text>
-  <rect class="box main" x="230" y="464" width="400" height="58" rx="8"/>
-  <text class="t" x="430" y="488" text-anchor="middle">Published: table, evidence, sources, audit trail</text>
-  <text class="s" x="430" y="508" text-anchor="middle">machine-readable CSV · automatic validation on every change</text>
-  <path class="arr" d="M430 72V102" marker-end="url(#a)"/><path class="arr" d="M430 162V192" marker-end="url(#a)"/>
-  <path class="arr" d="M430 252V282" marker-end="url(#a)"/><path class="arr" d="M430 342V372" marker-end="url(#a)"/>
-  <path class="arr" d="M430 432V462" marker-end="url(#a)"/>
-  <!-- side boxes -->
-  <rect class="box" x="12" y="194" width="190" height="58" rx="8"/>
-  <text class="t" x="107" y="218" text-anchor="middle">Source types</text>
-  <text class="s" x="107" y="238" text-anchor="middle">official docs, licences, code</text>
-  <path class="arr" d="M202 223H228" marker-end="url(#a)"/>
-  <rect class="box" x="658" y="374" width="190" height="58" rx="8"/>
-  <text class="t" x="753" y="394" text-anchor="middle">Flagged, not removed</text>
-  <text class="s" x="753" y="412" text-anchor="middle">§ only pre-2023 source</text>
-  <text class="s" x="753" y="427" text-anchor="middle">‡ abstract-only quotation</text>
-  <path class="arr" d="M630 403H656" marker-end="url(#a)"/>
-  <!-- correction loop -->
-  <rect class="box" x="658" y="464" width="190" height="58" rx="8"/>
-  <text class="t" x="753" y="488" text-anchor="middle">Corrections, new features</text>
-  <text class="s" x="753" y="508" text-anchor="middle">pull request or issue, public source</text>
-  <path class="loop" d="M630 493H656" marker-end="url(#al)"/>
-  <path class="loop" d="M753 464V223H632" marker-end="url(#al)"/>
-  <text class="s" x="760" y="300">re-enters review</text>
-</svg>
+<div class="card">
+<ol class="steps" aria-label="Methodology, step by step">
+  <li><div class="box"><b>Scope</b><span>14 platforms + GENPAT · 9 features</span><small>typing databases, analysis services, installable, national and viral platforms</small></div><div class="side"></div></li>
+  <li><div class="box"><b>Public sources collected: 60</b><span>23 articles and preprints · 37 documentation pages, repositories, web pages</span></div><div class="side"><b>Source types</b>official documentation, licence files, source code, release notes, presentations</div></li>
+  <li><div class="box"><b>First pass: 135 cells</b><span>each with its source and a verbatim quotation</span><small>a value is never inferred: no source → n.d.</small></div><div class="side"></div></li>
+  <li><div class="box"><b>Independent review</b><span>one rule for all rows: service, underlying software, third party</span><small>9 values corrected</small></div><div class="side loopin"><b>Corrections re-enter here</b>every pull request is reviewed against the same rule</div></li>
+  <li><div class="box"><b>Re-check against current sources</b><span>every cell resting on a pre-2023 source, every N and n.d.</span><small>10 values changed</small></div><div class="side"><b>Flagged, not removed</b>§ only pre-2023 source<br>‡ abstract-only quotation</div></li>
+  <li><div class="box"><b>Published</b><span>table, evidence, sources and audit trail</span><small>machine-readable CSV · automatic validation on every change</small></div><div class="side loopin"><b>Corrections and new features</b>pull request or issue, with a public source</div></li>
+</ol>
 </div>
 <p class="counts">Counts refer to the current version of the table. Full method: <a href="__REPO__/blob/main/METHODOLOGY.md">METHODOLOGY.md</a> · evidence and audit trail: <a href="__REPO__/blob/main/evidence/EVIDENCE.md">EVIDENCE.md</a>.</p>
 
